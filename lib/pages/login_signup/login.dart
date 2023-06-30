@@ -1,0 +1,167 @@
+import 'package:cute/constant/constant.dart';
+import 'package:cute/pages/login_signup/otp_screen.dart';
+import 'package:cute/services/auth.dart';
+import 'package:cute/services/global.dart';
+import 'package:cute/services/locator.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:intl_phone_number_input/intl_phone_number_input.dart';
+
+class Login extends StatefulWidget {
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  Color continueButtonColor = Colors.grey;
+  String phoneNumber = '';
+  String phoneIsoCode = '';
+  final TextEditingController controller = TextEditingController();
+  String initialCountry = 'IN';
+  PhoneNumber number = PhoneNumber(isoCode: 'IN');
+
+  void onPhoneNumberChange(
+      String number, String internationalizedPhoneNumber, String isoCode) {
+    setState(() {
+      phoneNumber = number;
+      phoneIsoCode = isoCode;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    return Scaffold(
+      backgroundColor: whiteColor,
+      appBar: AppBar(
+        backgroundColor: whiteColor,
+        elevation: 0.0,
+        // leading: IconButton(
+        //   icon: Icon(
+        //     Icons.arrow_back,
+        //     color: blackColor,
+        //   ),
+        //   onPressed: () {
+        //     // Navigator.pop(context);
+        //   },
+        // ),
+      ),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            child: ListView(
+              children: [
+                Container(
+                  padding: EdgeInsets.all(fixPadding * 2.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Enter your mobile number',
+                        style: blackLargeTextStyle,
+                      ),
+                      heightSpace,
+                      heightSpace,
+                      Text(
+                        'Create an account with your mobile number',
+                        style: greySmallTextStyle,
+                      ),
+                      SizedBox(height: 50.0),
+                      Text(
+                        'Mobile Number',
+                        style: greySmallBoldTextStyle,
+                      ),
+                      heightSpace,
+                      InternationalPhoneNumberInput(
+                        textStyle: TextStyle(
+                          color: blackColor,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        autoValidateMode: AutovalidateMode.disabled,
+                        selectorTextStyle: TextStyle(
+                          color: blackColor,
+                          fontSize: 16.0,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        initialValue: number,
+                        textFieldController: controller,
+                        // inputBorder: InputBorder.none,
+                        inputDecoration: InputDecoration(
+                          contentPadding:
+                              EdgeInsets.only(left: 20.0, bottom: 12.0),
+                          hintText: 'Mobile Number',
+                          hintStyle: TextStyle(
+                            color: greyColor,
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.w500,
+                          ),
+                          // border: InputBorder.none,
+                        ),
+                        selectorConfig: SelectorConfig(
+                          selectorType: PhoneInputSelectorType.DIALOG,
+                        ),
+                        onInputChanged: (v) {
+                          if (controller.text != '') {
+                            setState(() {
+                              continueButtonColor = primaryColor;
+                            });
+                          } else {
+                            setState(() {
+                              continueButtonColor = Colors.grey;
+                            });
+                          }
+                        },
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(fixPadding * 2.0),
+            child: InkWell(
+              onTap: () {
+                String phone = controller.text.replaceAll(' ', '');
+                if (phone.length == 10) {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => OTPScreen(phonenumber: phone)));
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(
+                      backgroundColor: Colors.red,
+                      content: Text(
+                        "Please enter valid mobile number",
+                        style: const TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  );
+                }
+              },
+              child: AnimatedContainer(
+                width: width - fixPadding * 2.0,
+                padding: EdgeInsets.all(fixPadding * 1.0),
+                duration: Duration(milliseconds: 200),
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30.0),
+                  color: continueButtonColor,
+                ),
+                child: Text(
+                  'Continue',
+                  style: whiteBottonTextStyle,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}

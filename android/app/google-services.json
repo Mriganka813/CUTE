@@ -1,0 +1,179 @@
+{
+  "project_info": {
+    "project_number": "1025146175164",
+    "project_id": "cute-f8bbc",
+    "storage_bucket": "cute-f8bbc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025146175164:android:ef58c6d31e15999ee99ab9",
+        "android_client_info": {
+          "package_name": "com.cube.magicstep"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025146175164-brk58nnm7fv2g290ikfun4jpdc1ssocs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGcuHC2xtofijOCzDQmSKRHAfghK9H0xQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1025146175164-brk58nnm7fv2g290ikfun4jpdc1ssocs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025146175164:android:9214201474837b9ae99ab9",
+        "android_client_info": {
+          "package_name": "com.magicstep.cube.buynow"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025146175164-9ok95dfqq05uc02frcb8prqmi09ijo2n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.magicstep.cube.buynow",
+            "certificate_hash": "ccba8505dfa5b16ad64f7986f0703dc14fa434af"
+          }
+        },
+        {
+          "client_id": "1025146175164-jo4olnfv7kchg53kige0dsad4h2bb1e8.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.magicstep.cube.buynow",
+            "certificate_hash": "1aff891b3ab1dc0ebfdfa1307158eb7d7c5c2e6e"
+          }
+        },
+        {
+          "client_id": "1025146175164-brk58nnm7fv2g290ikfun4jpdc1ssocs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGcuHC2xtofijOCzDQmSKRHAfghK9H0xQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1025146175164-brk58nnm7fv2g290ikfun4jpdc1ssocs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025146175164:android:bdd4c32118e39b68e99ab9",
+        "android_client_info": {
+          "package_name": "com.magicstep.cute.customer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025146175164-brk58nnm7fv2g290ikfun4jpdc1ssocs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGcuHC2xtofijOCzDQmSKRHAfghK9H0xQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1025146175164-brk58nnm7fv2g290ikfun4jpdc1ssocs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025146175164:android:34c2353a22ea2715e99ab9",
+        "android_client_info": {
+          "package_name": "com.magicstep.cute.delivery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025146175164-4girian6a33q5j3e19iqgvt4pgknnmju.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.magicstep.cute.delivery",
+            "certificate_hash": "5bae223bdbe9facbbcb3f27cca26931399ff4b46"
+          }
+        },
+        {
+          "client_id": "1025146175164-brk58nnm7fv2g290ikfun4jpdc1ssocs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGcuHC2xtofijOCzDQmSKRHAfghK9H0xQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1025146175164-brk58nnm7fv2g290ikfun4jpdc1ssocs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1025146175164:android:40e861ccae0ade47e99ab9",
+        "android_client_info": {
+          "package_name": "com.magicstep.cute.user"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1025146175164-brk58nnm7fv2g290ikfun4jpdc1ssocs.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCGcuHC2xtofijOCzDQmSKRHAfghK9H0xQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1025146175164-brk58nnm7fv2g290ikfun4jpdc1ssocs.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
