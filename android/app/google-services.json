@@ -88,6 +88,22 @@
       },
       "oauth_client": [
         {
+          "client_id": "1025146175164-bgtiot9ngqfvamrrkklj3q2es91f183t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.magicstep.cute.customer",
+            "certificate_hash": "5bae223bdbe9facbbcb3f27cca26931399ff4b46"
+          }
+        },
+        {
+          "client_id": "1025146175164-jtmkd4cgmu0fmact5nj0ao8op24hvp01.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.magicstep.cute.customer",
+            "certificate_hash": "577c1f41e476f7b757316a35f61790387f193ce5"
+          }
+        },
+        {
           "client_id": "1025146175164-brk58nnm7fv2g290ikfun4jpdc1ssocs.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -122,6 +138,14 @@
           "android_info": {
             "package_name": "com.magicstep.cute.delivery",
             "certificate_hash": "5bae223bdbe9facbbcb3f27cca26931399ff4b46"
+          }
+        },
+        {
+          "client_id": "1025146175164-s4aao8s1gfvu77tsq71vjr4hehs0je0b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.magicstep.cute.delivery",
+            "certificate_hash": "1a54369784c49cd9a16a26cdb5485c41bdaee4b2"
           }
         },
         {

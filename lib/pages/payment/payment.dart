@@ -18,11 +18,11 @@ class Payment extends StatefulWidget {
 }
 
 class _PaymentState extends State<Payment> {
-  bool amazon = true,
+  bool amazon = false,
       card = false,
       paypal = false,
       skrill = false,
-      cashOn = false;
+      cashOn = true;
 
   successOrderDialog(bool isSuccess) {
     showDialog(
@@ -180,16 +180,16 @@ class _PaymentState extends State<Payment> {
             padding: EdgeInsets.all(fixPadding * 2.0),
             color: lightPrimaryColor,
             child: Text(
-              'Pay \$${widget.input.price!.toStringAsFixed(2)}',
+              'Pay \₹${widget.input.price!.toStringAsFixed(2)}',
               style: blackLargeTextStyle,
             ),
           ),
           getPaymentTile(
               'Pay on Delivery', 'assets/payment_icon/cash_on_delivery.png'),
-          getPaymentTile('Amazon Pay', 'assets/payment_icon/amazon_pay.png'),
+          // getPaymentTile('Amazon Pay', 'assets/payment_icon/amazon_pay.png'),
           getPaymentTile('Card', 'assets/payment_icon/card.png'),
-          getPaymentTile('PayPal', 'assets/payment_icon/paypal.png'),
-          getPaymentTile('Skrill', 'assets/payment_icon/skrill.png'),
+          // getPaymentTile('PayPal', 'assets/payment_icon/paypal.png'),
+          // getPaymentTile('Skrill', 'assets/payment_icon/skrill.png'),
           Container(height: fixPadding * 2.0),
         ],
       ),

@@ -1,7 +1,7 @@
 name: cute
 description: A new Flutter project.
 publish_to: 'none'
-version: 0.1.1+2
+version: 2.1.0+7
 
 environment:
   sdk: '>=3.0.5 <4.0.0'
@@ -37,6 +37,7 @@ dependencies:
   path_provider: ^2.0.9
   shared_preferences: ^2.0.20
   socket_io_client: ^2.0.1
+  new_version_plus: ^0.0.9
 
 dev_dependencies:
   flutter_test:
@@ -48,7 +49,7 @@ dev_dependencies:
 flutter_icons:
   android: "launcher_icon"
   ios: true
-  image_path: "assets/icon.png"
+  image_path: "assets/iconc.png"
 
 flutter:
   uses-material-design: true

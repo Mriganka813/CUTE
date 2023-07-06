@@ -446,8 +446,8 @@ class _EditProfileState extends State<EditProfile> {
                     //   fit: BoxFit.cover,
                     // ),
                   ),
-                  child: Icon(
-                    Icons.person_3,
+                  child: const Icon(
+                    Icons.person,
                     size: 70,
                   ),
                   // Container(

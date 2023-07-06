@@ -202,4 +202,18 @@ class TripInfo {
       throw "Service Unavailable";
     });
   }
+
+  // CANCEL RIDE
+  Future<void> cancelRide(String tripID) async {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String token = prefs.getString('access_token')!;
+    print(token);
+    await ApiV1Service.patchRequest(
+            '/trips/confirmed/$tripID/cancel',
+            token: token)
+        .catchError((e) {
+      print(e);
+      throw "Service Unavailable";
+    });
+  }
 }

@@ -4,6 +4,7 @@ import 'package:cute/pages/login_signup/login.dart';
 import 'package:cute/pages/login_signup/walkthrough.dart';
 import 'package:cute/pages/notifications/notifications.dart';
 import 'package:cute/pages/profile/edit_profile.dart';
+import 'package:cute/pages/profile/privacypolicy.dart';
 import 'package:cute/pages/splashScreen.dart';
 import 'package:cute/services/auth.dart';
 import 'package:flutter/material.dart';
@@ -164,8 +165,8 @@ class _ProfileState extends State<Profile> {
                           //   fit: BoxFit.cover,
                           // ),
                         ),
-                        child: Icon(
-                          Icons.person_3,
+                        child: const Icon(
+                          Icons.person,
                           size: 70,
                         ),
                       ),
@@ -234,20 +235,20 @@ class _ProfileState extends State<Profile> {
                 //       Icon(Icons.language, color: Colors.grey.withOpacity(0.6)),
                 //       'Language'),
                 // ),
-                InkWell(
-                  onTap: () {},
-                  child: getTile(
-                      Icon(Icons.file_copy,
-                          color: Colors.grey.withOpacity(0.6)),
-                      'Terms of Services'),
-                ),
+                // InkWell(
+                //   onTap: () {},
+                //   child: getTile(
+                //       Icon(Icons.file_copy,
+                //           color: Colors.grey.withOpacity(0.6)),
+                //       'Terms of Services'),
+                // ),
                 InkWell(
                   onTap: () {
-                    // Navigator.push(
-                    //     context,
-                    //     PageTransition(
-                    //         type: PageTransitionType.rightToLeft,
-                    //         child: InviteFriend()));
+                    Navigator.push(
+                        context,
+                        PageTransition(
+                            type: PageTransitionType.rightToLeft,
+                            child: privacyPolicy()));
                   },
                   child: getTile(
                       Icon(Icons.file_copy,

@@ -1,6 +1,7 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, prefer_const_constructors, must_be_immutable
 import 'dart:async';
 
+import 'package:cute/constant/custom_snackbar.dart';
 import 'package:cute/pages/profile/signup_profile.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -53,7 +54,6 @@ class _OTPScreenState extends State<OTPScreen> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    print(code + "ab yaha aaya?");
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(
@@ -83,7 +83,7 @@ class _OTPScreenState extends State<OTPScreen> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Verify details',
+                        'Verify mobile number',
                         style: blackLargeTextStyle,
                       ),
                       heightSpace,
@@ -131,6 +131,7 @@ class _OTPScreenState extends State<OTPScreen> {
                 if (smsotp == "" && code == "") {
                   locator<GlobalServices>()
                       .errorSnackBar("Verification Failed");
+                  SnackBarWidget.showErrorBar(context, "Verification Failed");
                   return;
                 }
                 await verifyOtp();
@@ -177,10 +178,10 @@ class _OTPScreenState extends State<OTPScreen> {
 
   ///
   getotp(String phone) async {
+    // SnackBarWidget.showInfoBar(context, "Sending OTP...");
     await _authInstace.verifyPhoneNumber(
       phoneNumber: '+91$phone',
       verificationCompleted: (PhoneAuthCredential credential) async {
-        print("Yaha aaya h kya ?");
         setState(() {
           code = credential.smsCode!;
           continueButtonColor = primaryColor;
@@ -188,11 +189,15 @@ class _OTPScreenState extends State<OTPScreen> {
       },
       verificationFailed: (FirebaseAuthException e) {
         locator<GlobalServices>().errorSnackBar("Verification Failed");
+        SnackBarWidget.showErrorBar(context, "Verification Failed");
       },
       codeSent: (String verificationId, int? resendToken) {
         locator<GlobalServices>().successSnackBar("Code sent");
-        _verificationId = verificationId;
-        continueButtonColor = primaryColor;
+        SnackBarWidget.showInfoBar(context, "Code sent");
+        setState(() {
+          _verificationId = verificationId;
+          continueButtonColor = primaryColor;
+        });
       },
       codeAutoRetrievalTimeout: (String verificationId) {},
     );
@@ -207,15 +212,14 @@ class _OTPScreenState extends State<OTPScreen> {
     try {
       await _authInstace.signInWithCredential(credential).then((value) {
         locator<GlobalServices>().successSnackBar("Verified ✓");
+        SnackBarWidget.showSuccessBar(context, "Verified ✓");
         setState(() {
           isverified = true;
         });
       });
-
-      // print("chkchkchckhckchkchkchckhck");
-      // auth.signUpRequest(widget.phonenumber);
     } catch (e) {
       locator<GlobalServices>().errorSnackBar("Verificastion falied");
+      SnackBarWidget.showErrorBar(context, "Verification Failed");
       setState(() {
         code = "";
         smsotp = "";
@@ -225,10 +229,12 @@ class _OTPScreenState extends State<OTPScreen> {
   }
 
   Widget otpfild(digit) {
-    print(digit);
+    double height = MediaQuery.of(context).size.height;
+    double width = MediaQuery.of(context).size.width / 7;
+    // print(digit);
     return Container(
-      width: 50.0,
-      height: 50.0,
+      width: width / 1.2,
+      height: height / 13,
       decoration: BoxDecoration(
         color: whiteColor,
         borderRadius: BorderRadius.circular(5.0),
@@ -255,12 +261,8 @@ class _OTPScreenState extends State<OTPScreen> {
           }
         },
         textAlign: TextAlign.center,
-        style: TextStyle(
-            // fontSize: height / 40,
-            // color: notifier.getblackcolor,
-            fontFamily: 'Gilroy Bold'),
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.all(18.0),
+        style: TextStyle(fontSize: height / 30, fontFamily: 'Gilroy Bold'),
+        decoration: const InputDecoration(
           border: InputBorder.none,
         ),
       ),

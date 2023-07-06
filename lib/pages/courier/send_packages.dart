@@ -1,4 +1,5 @@
 import 'package:cute/constant/constant.dart';
+import 'package:cute/constant/custom_snackbar.dart';
 import 'package:cute/constant/key.dart';
 import 'package:cute/model/Input/NewTripInput.dart';
 import 'package:cute/model/Input/vehicle.dart';
@@ -7,6 +8,7 @@ import 'package:cute/pages/payment/payment.dart';
 import 'package:cute/services/page_services/trip_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_maps_place_picker_mb/google_maps_place_picker.dart';
 // import 'package:location/location.dart';
@@ -77,6 +79,7 @@ class _SendPackagesState extends State<SendPackages> {
     };
   }
 
+  int _selectedVehical = -1;
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -87,32 +90,30 @@ class _SendPackagesState extends State<SendPackages> {
       tag: 'Send Packages',
       child: Scaffold(
         backgroundColor: whiteColor,
-        appBar: selectPickUpAddressScreen || selectDeliveryAddressScreen
-            ? PreferredSize(child: Container(), preferredSize: Size(0.0, 0.0))
-            : AppBar(
-                backgroundColor: whiteColor,
-                elevation: 0.0,
-                titleSpacing: 0.0,
-                title: Text(
-                    (packageTypeScreen)
-                        ? 'Select Package Type'
-                        : (packageSizeWeightScreen)
-                            ? 'Enter Package Size and Weight'
-                            : (selectPickUpAddressScreen)
-                                ? 'Select Pickup Address'
-                                : (selectDeliveryAddressScreen)
-                                    ? 'Select Delivery Address'
-                                    : (confirmScreen)
-                                        ? 'Confirm Details'
-                                        : '',
-                    style: appBarBlackTextStyle),
-                leading: IconButton(
-                  icon: Icon(Icons.arrow_back_ios, color: blackColor),
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
+        appBar: AppBar(
+          backgroundColor: whiteColor,
+          elevation: 0.0,
+          titleSpacing: 0.0,
+          title: Text(
+              (packageTypeScreen)
+                  ? 'Select Package Type'
+                  : (packageSizeWeightScreen)
+                      ? 'Enter Package Size and Weight'
+                      : (selectPickUpAddressScreen)
+                          ? 'Select Pickup Address'
+                          : (selectDeliveryAddressScreen)
+                              ? 'Select Delivery Address'
+                              : (confirmScreen)
+                                  ? 'Confirm Details'
+                                  : '',
+              style: appBarBlackTextStyle),
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back_ios, color: blackColor),
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -132,23 +133,23 @@ class _SendPackagesState extends State<SendPackages> {
                               ? confirmScreenCode()
                               : Container(),
             ),
-            Container(
-              width: width,
-              height: 85.0,
-              color: whiteColor,
-              alignment: Alignment.center,
-              padding: EdgeInsets.all(fixPadding * 2.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  (packageTypeScreen || selectPickUpAddressScreen)
-                      ? Container()
-                      : backButton(),
-                  continueButton(),
-                ],
-              ),
-            ),
+            // Container(
+            //   width: width,
+            //   height: 85.0,
+            //   color: whiteColor,
+            //   alignment: Alignment.center,
+            //   padding: EdgeInsets.all(fixPadding * 2.0),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     crossAxisAlignment: CrossAxisAlignment.center,
+            //     children: [
+            //       (packageTypeScreen || selectPickUpAddressScreen)
+            //           ? Container()
+            //           : backButton(),
+            //       continueButton(),
+            //     ],
+            //   ),
+            // ),
           ],
         ),
       ),
@@ -496,12 +497,14 @@ class _SendPackagesState extends State<SendPackages> {
               children: <Widget>[
                 Container(
                     // color: Colors.amber,
-                    height: 400,
+                    height: height / 1.1,
                     child: PlacePicker(
                       apiKey: googleMapKey,
                       initialPosition: widget.kInitialPosition,
                       useCurrentLocation: true,
                       selectInitialPosition: true,
+                      automaticallyImplyAppBarLeading: false,
+                      hintText: "Search",
                       // usePlaceDetailSearch: true,
                       // onPlacePicked: (result) {
                       //   selectedPickupPlace = result;
@@ -515,15 +518,23 @@ class _SendPackagesState extends State<SendPackages> {
                         return isSearchBarFocused
                             ? Container()
                             : FloatingCard(
-                                bottomPosition: 0.0,
-                                leftPosition: 0.0,
-                                rightPosition: 0.0,
-                                width: 500,
+                                bottomPosition: height / 15,
+                                color: Colors.transparent,
+                                leftPosition: width / 12,
+                                // rightPosition: 0.0,
+                                width: width / 1.2,
                                 borderRadius: BorderRadius.circular(12.0),
                                 child: state == SearchingState.Searching
                                     ? Center(child: CircularProgressIndicator())
                                     : ElevatedButton(
-                                        child: Text("Pick This Place"),
+                                        style: ElevatedButton.styleFrom(
+                                          shape: RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12.0),
+                                          ),
+                                        ),
+                                        child: Text("Select pickup location",
+                                            style: TextStyle(fontSize: 20)),
                                         onPressed: () {
                                           print(pickuplocation);
                                           // Navigator.pop(context, selectedPlace);
@@ -532,70 +543,74 @@ class _SendPackagesState extends State<SendPackages> {
                                             pickuplocation = selectedPlace!
                                                 .geometry!.location
                                                 .toJson();
+                                            selectPickUpAddressScreen = false;
+                                            selectDeliveryAddressScreen = true;
+                                            customloadingDialog(
+                                                "Please wait...");
                                           });
                                         },
                                       ),
                               );
                       },
                     )),
-                Container(
-                  padding: EdgeInsets.all(fixPadding * 2.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Place marker on google map at pickup location',
-                          style: greySmallTextStyle),
-                      heightSpace,
-                      (selectedPickupPlace == null)
-                          ? Container()
-                          : Text(
-                              selectedPickupPlace!.formattedAddress ?? "",
-                              textAlign: TextAlign.center,
-                              style: inputTextStyle,
-                            ),
-                      (selectedPickupPlace == null) ? Container() : heightSpace,
-                      Text('Pickup Address',
-                          style: primaryColorHeadingTextStyle),
-                      heightSpace,
-                      Container(
-                        width: width - (fixPadding * 4.0),
-                        height: 120.0,
-                        alignment: Alignment.centerLeft,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5.0),
-                          border: Border.all(
-                              width: 0.8, color: greyColor.withOpacity(0.6)),
-                        ),
-                        child: TextField(
-                          style: inputTextStyle,
-                          keyboardType: TextInputType.multiline,
-                          maxLines: 3,
-                          controller: pickupAddressController,
-                          decoration: InputDecoration(
-                            hintText:
-                                'Please enter exact pickup address like house no, flat no, road no, etc.',
-                            hintStyle: TextStyle(color: Colors.grey),
-                            contentPadding: EdgeInsets.all(10.0),
-                            border: InputBorder.none,
-                          ),
-                          onChanged: (v) {
-                            if (pickupAddressController.text != '') {
-                              setState(() {
-                                pickupAddress = true;
-                              });
-                            } else {
-                              setState(() {
-                                pickupAddress = false;
-                              });
-                            }
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // Container(
+                //   padding: EdgeInsets.all(fixPadding * 2.0),
+                //   child: Column(
+                //     mainAxisAlignment: MainAxisAlignment.start,
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+                //       Text('Place marker on google map at pickup location',
+                //           style: greySmallTextStyle),
+                //       heightSpace,
+                //       (selectedPickupPlace == null)
+                //           ? Container()
+                //           : Text(
+                //               selectedPickupPlace!.formattedAddress ?? "",
+                //               textAlign: TextAlign.center,
+                //               style: inputTextStyle,
+                //             ),
+                //       (selectedPickupPlace == null) ? Container() : heightSpace,
+                //       Text('Pickup Address',
+                //           style: primaryColorHeadingTextStyle),
+                //       heightSpace,
+                //       Container(
+                //         width: width - (fixPadding * 4.0),
+                //         height: 120.0,
+                //         alignment: Alignment.centerLeft,
+                //         decoration: BoxDecoration(
+                //           color: Colors.white,
+                //           borderRadius: BorderRadius.circular(5.0),
+                //           border: Border.all(
+                //               width: 0.8, color: greyColor.withOpacity(0.6)),
+                //         ),
+                //         child: TextField(
+                //           style: inputTextStyle,
+                //           keyboardType: TextInputType.multiline,
+                //           maxLines: 3,
+                //           controller: pickupAddressController,
+                //           decoration: InputDecoration(
+                //             hintText:
+                //                 'Please enter exact pickup address like house no, flat no, road no, etc.',
+                //             hintStyle: TextStyle(color: Colors.grey),
+                //             contentPadding: EdgeInsets.all(10.0),
+                //             border: InputBorder.none,
+                //           ),
+                //           onChanged: (v) {
+                //             if (pickupAddressController.text != '') {
+                //               setState(() {
+                //                 pickupAddress = true;
+                //               });
+                //             } else {
+                //               setState(() {
+                //                 pickupAddress = false;
+                //               });
+                //             }
+                //           },
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -620,13 +635,15 @@ class _SendPackagesState extends State<SendPackages> {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  height: 400,
+                  height: height / 1.1,
                   child: PlacePicker(
                     apiKey: googleMapKey,
                     initialPosition: widget.kInitialPosition,
                     useCurrentLocation: true,
                     selectInitialPosition: true,
 
+                    automaticallyImplyAppBarLeading: false,
+                    hintText: "Search",
                     //usePlaceDetailSearch: true,
                     // onPlacePicked: (result) {
                     //   selectedDeliveryPlace = result;
@@ -638,16 +655,24 @@ class _SendPackagesState extends State<SendPackages> {
                       return isSearchBarFocused
                           ? Container()
                           : FloatingCard(
-                              bottomPosition: 0.0,
-                              leftPosition: 0.0,
-                              rightPosition: 0.0,
-                              width: 500,
+                              bottomPosition: height / 15,
+                              color: Colors.transparent,
+                              leftPosition: width / 12,
+                              // rightPosition: 0.0,
+                              width: width / 1.2,
                               borderRadius: BorderRadius.circular(12.0),
                               child: state == SearchingState.Searching
                                   ? Center(child: CircularProgressIndicator())
                                   : ElevatedButton(
-                                      child: Text("Pick This Place"),
-                                      onPressed: () {
+                                      style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(12.0),
+                                        ),
+                                      ),
+                                      child: Text("Select drop location",
+                                          style: TextStyle(fontSize: 20)),
+                                      onPressed: () async {
                                         // Navigator.pop(context, selectedPlace);
                                         setState(() {
                                           selectedDeliveryPlace = selectedPlace;
@@ -655,71 +680,76 @@ class _SendPackagesState extends State<SendPackages> {
                                               .geometry!.location
                                               .toJson();
                                         });
+                                        await getVehicleList();
+                                        setState(() {
+                                          selectDeliveryAddressScreen = false;
+                                          confirmScreen = true;
+                                        });
                                       },
                                     ),
                             );
                     },
                   ),
                 ),
-                Container(
-                  padding: EdgeInsets.all(fixPadding * 2.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Place marker on google map at delivery location',
-                          style: greySmallTextStyle),
-                      heightSpace,
-                      (selectedDeliveryPlace == null)
-                          ? Container()
-                          : Text(
-                              selectedDeliveryPlace!.formattedAddress ?? "",
-                              textAlign: TextAlign.center,
-                              style: inputTextStyle,
-                            ),
-                      (selectedDeliveryPlace == null)
-                          ? Container()
-                          : heightSpace,
-                      Text('Delivery Address',
-                          style: primaryColorHeadingTextStyle),
-                      heightSpace,
-                      Container(
-                        width: width - (fixPadding * 4.0),
-                        height: 120.0,
-                        alignment: Alignment.centerLeft,
-                        decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(5.0),
-                          border: Border.all(
-                              width: 0.8, color: greyColor.withOpacity(0.6)),
-                        ),
-                        child: TextField(
-                          style: inputTextStyle,
-                          keyboardType: TextInputType.multiline,
-                          maxLines: 3,
-                          controller: deliveryAddressController,
-                          decoration: InputDecoration(
-                            hintText: 'Please enter exact pickup address',
-                            hintStyle: inputTextStyle,
-                            contentPadding: EdgeInsets.all(10.0),
-                            border: InputBorder.none,
-                          ),
-                          onChanged: (v) {
-                            if (deliveryAddressController.text != '') {
-                              setState(() {
-                                deliveryAddress = true;
-                              });
-                            } else {
-                              setState(() {
-                                deliveryAddress = false;
-                              });
-                            }
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                // Container(
+                //   padding: EdgeInsets.all(fixPadding * 2.0),
+                //   child: Column(
+                //     mainAxisAlignment: MainAxisAlignment.start,
+                //     crossAxisAlignment: CrossAxisAlignment.start,
+                //     children: [
+                //       Text('Place marker on google map at delivery location',
+                //           style: greySmallTextStyle),
+                //       heightSpace,
+                //       (selectedDeliveryPlace == null)
+                //           ? Container()
+                //           : Text(
+                //               selectedDeliveryPlace!.formattedAddress ?? "",
+                //               textAlign: TextAlign.center,
+                //               style: inputTextStyle,
+                //             ),
+                //       (selectedDeliveryPlace == null)
+                //           ? Container()
+                //           : heightSpace,
+                //       Text('Delivery Address',
+                //           style: primaryColorHeadingTextStyle),
+                //       heightSpace,
+                //       Container(
+                //         width: width - (fixPadding * 4.0),
+                //         height: 120.0,
+                //         alignment: Alignment.centerLeft,
+                //         decoration: BoxDecoration(
+                //           color: Colors.white,
+                //           borderRadius: BorderRadius.circular(5.0),
+                //           border: Border.all(
+                //               width: 0.8, color: greyColor.withOpacity(0.6)),
+                //         ),
+                //         child: TextField(
+                //           style: inputTextStyle,
+                //           keyboardType: TextInputType.multiline,
+                //           maxLines: 3,
+                //           controller: deliveryAddressController,
+                //           decoration: InputDecoration(
+                //             hintText: 'Please enter exact pickup address',
+                //             hintStyle: inputTextStyle,
+                //             contentPadding: EdgeInsets.all(10.0),
+                //             border: InputBorder.none,
+                //           ),
+                //           onChanged: (v) {
+                //             if (deliveryAddressController.text != '') {
+                //               setState(() {
+                //                 deliveryAddress = true;
+                //               });
+                //             } else {
+                //               setState(() {
+                //                 deliveryAddress = false;
+                //               });
+                //             }
+                //           },
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -865,12 +895,12 @@ class _SendPackagesState extends State<SendPackages> {
       //   ],
       // ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        // mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Column(
             children: [
               Container(
-                height: 200,
+                height: height / 3,
                 child: RouteMap(
                     sourceLat: selectedPickupPlace!.geometry!.location.lat,
                     sourceLang: selectedPickupPlace!.geometry!.location.lng,
@@ -894,22 +924,30 @@ class _SendPackagesState extends State<SendPackages> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 0),
                 child: Container(
-                  height: 200,
+                  height: height / 3.9,
                   child: ListView.builder(
                     itemCount: vehicleList.length - 1,
                     itemBuilder: (BuildContext context, int index) {
                       return ListTile(
-                        title: Text('${vehicleList[index].vehicleType}'),
-                        subtitle: Text('${vehicleList[index].pricePerKM}'),
+                        title: Text('${vehicleList[index].vehicleType}',
+                            style: TextStyle(fontWeight: FontWeight.w600)),
+                        subtitle:
+                            Text('\₹ ${vehicleList[index].pricePerKM} / km'),
                         leading: Icon(Icons.local_taxi),
                         // leading: CircleAvatar(
                         //   backgroundImage:
                         //       AssetImage('assets/delivery_boy.jpg'),
                         // ),
-                        trailing: Text('Accept'),
+                        tileColor: _selectedVehical == -1
+                            ? Colors.white
+                            : _selectedVehical == index
+                                ? primaryColor.withOpacity(0.1)
+                                : Colors.white,
+                        trailing: Text('Available'),
                         onTap: () {
                           setState(() {
                             // _selectedVehicle = vehicleList[index];
+                            _selectedVehical = index;
                             _newTrip.serviceAreaId =
                                 vehicleList[index].serviceAreaID;
                             _newTrip.vehicleId = vehicleList[index].vehicleId;
@@ -917,8 +955,8 @@ class _SendPackagesState extends State<SendPackages> {
                             _newTrip.pickuplocation = pickuplocation;
                             _newTrip.droplocatioon = droplocatioon;
                           });
-                          print(_newTrip.serviceAreaId);
-                          print(_newTrip.price);
+                          // print(_newTrip.serviceAreaId);
+                          // print(_newTrip.price);
                         },
                       );
                     },
@@ -927,80 +965,18 @@ class _SendPackagesState extends State<SendPackages> {
               ),
             ],
           ),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+        ],
+      ),
+      bottomNavigationBar: SizedBox(
+        height: height / 4,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 10.0, top: 10),
+          child: Column(
             children: [
-              Padding(
-                padding: EdgeInsets.only(
-                    right: fixPadding * 2.0,
-                    left: fixPadding * 2.0,
-                    top: fixPadding),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    // Pickup Start
-                    Container(
-                      width: (width - (fixPadding * 6.0)) / 2.0,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Pickup',
-                            style: blackLargeTextStyle,
-                          ),
-                          heightSpace,
-                          Container(
-                            // color: Colors.blue,
-                            height: height / 20,
-                            width: (width - (fixPadding * 6.0)) / 2.0,
-                            child: SingleChildScrollView(
-                              child: Text(
-                                pickupAddressController.text,
-                                style: inputTextStyle,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Pickup End
-                    // Delivery Start
-                    Container(
-                      width: (width - (fixPadding * 6.0)) / 2.0,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'Delivery',
-                            style: blackLargeTextStyle,
-                          ),
-                          heightSpace,
-                          Container(
-                            width: (width - (fixPadding * 6.0)) / 2.0,
-                            height: height / 20,
-                            // color: Colors.red,
-                            child: SingleChildScrollView(
-                              child: Text(deliveryAddressController.text,
-                                  style: inputTextStyle),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    // Delivery End
-                  ],
-                ),
-              ),
               Divider(),
               Container(
-                color: lightPrimaryColor,
+                color: primaryColor.withOpacity(0.2),
                 height: height / 11,
-                // color: Colors.amber,
-                // padding: EdgeInsets.all(fixPadding),
                 alignment: Alignment.center,
                 child: SingleChildScrollView(
                   child: Column(
@@ -1021,10 +997,15 @@ class _SendPackagesState extends State<SendPackages> {
                     ],
                   ),
                 ),
-              )
+              ),
+              Divider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [backButton(), continueButton()],
+              ),
             ],
           ),
-        ],
+        ),
       ),
     );
   }
@@ -1110,6 +1091,43 @@ class _SendPackagesState extends State<SendPackages> {
     );
   }
 
+  customloadingDialog(String value) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return Dialog(
+          elevation: 0.0,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          child: Container(
+            height: 150.0,
+            padding: EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                SpinKitRing(
+                  color: primaryColor,
+                  lineWidth: 1.5,
+                  size: 35.0,
+                ),
+                heightSpace,
+                heightSpace,
+                Text(value, style: greySmallTextStyle),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+
+    Future.delayed(Duration(seconds: 2), () {
+      Navigator.pop(context);
+    });
+  }
+
   List<Vehicle> vehicleList = [];
   getVehicleList() async {
     loadingDialog();
@@ -1127,21 +1145,6 @@ class _SendPackagesState extends State<SendPackages> {
     double width = MediaQuery.of(context).size.width;
     return InkWell(
       onTap: () async {
-        // if (packageTypeScreen) {
-        //   if (documents || parcel) {
-        //     setState(() {
-        //       packageTypeScreen = false;
-        //       packageSizeWeightScreen = true;
-        //     });
-        //   }
-        // } else if (packageSizeWeightScreen) {
-        //   if (height && widthInput && depth && weight) {
-        //     setState(() {
-        //       packageSizeWeightScreen = false;
-        //       selectPickUpAddressScreen = true;
-        //     });
-        //   }
-        // } else
         print("object");
         if (selectPickUpAddressScreen) {
           // if (pickupAddress && selectedPickupPlace != null) {
@@ -1159,11 +1162,20 @@ class _SendPackagesState extends State<SendPackages> {
             });
           }
         } else if (confirmScreen) {
-          Navigator.push(
-              context,
-              PageTransition(
-                  type: PageTransitionType.rightToLeft,
-                  child: Payment(input: _newTrip)));
+          if (_selectedVehical == -1) {
+            // SnackBarWidget.showErrorBar(context, "Please select vehicle");
+            Fluttertoast.showToast(
+                msg: "Please select vehicle",
+                backgroundColor: Colors.red,
+                textColor: whiteColor,
+                fontSize: 16.0);
+          } else {
+            Navigator.push(
+                context,
+                PageTransition(
+                    type: PageTransitionType.rightToLeft,
+                    child: Payment(input: _newTrip)));
+          }
         }
       },
       child: Container(

@@ -5,8 +5,6 @@ import 'package:cute/constant/constant.dart';
 import 'package:cute/pages/home/home.dart';
 import 'package:cute/pages/notifications/notifications.dart';
 import 'package:cute/pages/orders/orders.dart';
-import 'package:cute/pages/search/search.dart';
-import 'package:cute/pages/wallet/wallet.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 

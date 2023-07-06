@@ -85,12 +85,11 @@ class _RouteMapState extends State<RouteMap> {
 
   void setSourceAndDestinationIcons() async {
     sourceIcon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.5), 'assets/pickup-marker.png');
+        ImageConfiguration(devicePixelRatio: 2.5), 'assets/start2.png');
     destinationIcon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.5),
-        'assets/delivery_marker.png');
+        ImageConfiguration(devicePixelRatio: 2.5), 'assets/end2.png');
     driverIcon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.5), 'assets/car2.png');
+        ImageConfiguration(devicePixelRatio: 2.5), 'assets/driver2.png');
   }
 
   @override
@@ -106,7 +105,9 @@ class _RouteMapState extends State<RouteMap> {
         tiltGesturesEnabled: false,
         markers: _markers,
         polylines: _polylines,
-        mapType: MapType.normal,
+        mapType: MapType.terrain,
+        indoorViewEnabled: true,
+        trafficEnabled: true,
         initialCameraPosition: initialLocation,
         onMapCreated: onMapCreated);
   }
@@ -162,7 +163,7 @@ class _RouteMapState extends State<RouteMap> {
       // with an id, an RGB color and the list of LatLng pairs
       Polyline polyline = Polyline(
           polylineId: PolylineId("poly"),
-          width: 4,
+          width: 5,
           color: Colors.black,
           points: polylineCoordinates);
 

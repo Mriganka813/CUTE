@@ -25,17 +25,27 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'CUTE',
       theme: ThemeData(
-        primarySwatch: Colors.orange,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-        primaryColor: primaryColor,
-        fontFamily: 'Mukta',
-        textSelectionTheme: TextSelectionThemeData(
-          cursorColor: primaryColor,
-        ),
-        tabBarTheme: TabBarTheme(
-          labelColor: greyColor,
-        ),
-      ),
+          primarySwatch: Colors.green,
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+          primaryColor: primaryColor,
+          fontFamily: 'Mukta',
+          textSelectionTheme: TextSelectionThemeData(
+            cursorColor: primaryColor,
+          ),
+          tabBarTheme: TabBarTheme(
+            labelColor: greyColor,
+          ),
+          appBarTheme: const AppBarTheme(
+            systemOverlayStyle: SystemUiOverlayStyle(
+              // Status bar color
+              statusBarColor: Colors.transparent,
+
+              // Status bar brightness (optional)
+              statusBarIconBrightness:
+                  Brightness.dark, // For Android (dark icons)
+              statusBarBrightness: Brightness.light, // For iOS (dark icons)
+            ),
+          )),
       debugShowCheckedModeBanner: false,
       // builder: (context, child) {
       //   return ScrollConfiguration(

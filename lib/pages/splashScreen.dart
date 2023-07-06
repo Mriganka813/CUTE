@@ -1,13 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
 import 'dart:async';
-
 import 'package:cute/constant/constant.dart';
 import 'package:cute/pages/bottom_bar.dart';
 import 'package:cute/pages/login_signup/login.dart';
-import 'package:cute/pages/login_signup/walkthrough.dart';
-import 'package:cute/services/api_v1.dart';
 import 'package:cute/services/auth.dart';
-import 'package:cute/services/const.dart';
 import 'package:flutter/material.dart';
+import 'package:new_version_plus/new_version_plus.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -20,18 +18,30 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
-    authStatus();
+    _checkUpdate();
+  }
+
+  final newVersionPlus = NewVersionPlus();
+  Future<void> _checkUpdate() async {
+    final status = await newVersionPlus.getVersionStatus();
+    if (status!.canUpdate) {
+      newVersionPlus.showUpdateDialog(
+          context: context, versionStatus: status, allowDismissal: false);
+    } else {
+      authStatus();
+    }
   }
 
   Future<void> authStatus() async {
+    await Future.delayed(const Duration(milliseconds: 3000));
     final prefs = await SharedPreferences.getInstance();
-    final String access_token = prefs.getString('access_token') ?? "";
-    final String refresh_token = prefs.getString('refresh_token') ?? "";
+    final String accessToken = prefs.getString('access_token') ?? "";
+    // final String refreshToken = prefs.getString('refresh_token') ?? "";
 
-    final isAuthenticated = access_token.isNotEmpty;
+    final isAuthenticated = accessToken.isNotEmpty;
 
-    print(access_token);
-    print(refresh_token);
+    // print(access_token);
+    // print(refresh_token);
 
     if (isAuthenticated) {
       try {
@@ -66,25 +76,11 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: darkBlueColor,
+      backgroundColor: Color.fromRGBO(0, 191, 99, 1),
       body: Padding(
         padding: EdgeInsets.all(fixPadding),
         child: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text(
-                'CourierPro',
-                style: splashBigTextStyle,
-              ),
-              heightSpace,
-              Text(
-                'on-demand delivery available 24x7',
-                style: whiteNormalTextStyle,
-              ),
-            ],
-          ),
+          child: Center(child: Image.asset('assets/iconc.png')),
         ),
       ),
     );

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cute/constant/constant.dart';
 import 'package:cute/model/Input/order.dart';
 import 'package:cute/pages/orders/track_order.dart';
@@ -17,13 +19,27 @@ class _ActiveOrdersState extends State<Orders> {
   List<Order> PastOrders = [];
   bool isLoadingActiveOrder = true;
   bool isLoadingPastOrder = true;
+  late var timer;
 
   @override
   void initState() {
     super.initState();
     fetchOrders();
-
+    if (mounted) {
+      fetchOrders();
+      timer = Timer.periodic(Duration(seconds: 15), (Timer t) {
+        fetchOrders();
+      });
+    } else {
+      timer.cancel();
+    }
     // print(orders[0].customerID);
+  }
+
+  @override
+  void dispose() {
+    timer.cancel();
+    super.dispose();
   }
 
   void fetchOrders() async {
@@ -86,6 +102,7 @@ class _ActiveOrdersState extends State<Orders> {
   Widget build(BuildContext context) {
     // print(orders.length);
     double width = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: whiteColor,
       appBar: AppBar(
@@ -155,6 +172,82 @@ class _ActiveOrdersState extends State<Orders> {
     );
   }
 
+  cancelOrderDialog(String tripId) {
+    double width = MediaQuery.of(context).size.width;
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        // return object of type Dialog
+        return Dialog(
+          elevation: 0.0,
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
+          child: Container(
+            height: 200.0,
+            padding: EdgeInsets.all(20.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Text(
+                  "Are you sure you want to cancel the ride?",
+                  style: blackHeadingTextStyle,
+                ),
+                SizedBox(
+                  height: 20.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: <Widget>[
+                    InkWell(
+                      onTap: () {
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        width: (width / 3.5),
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        child: Text(
+                          'No',
+                          style: blackBottonTextStyle,
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () async {
+                        TripInfo trip = new TripInfo();
+                        await trip.cancelRide(tripId);
+                        Navigator.pop(context);
+                      },
+                      child: Container(
+                        width: (width / 3.5),
+                        alignment: Alignment.center,
+                        padding: EdgeInsets.all(10.0),
+                        decoration: BoxDecoration(
+                          color: primaryColor,
+                          borderRadius: BorderRadius.circular(5.0),
+                        ),
+                        child: Text(
+                          'Yes',
+                          style: whiteBottonTextStyle,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        );
+      },
+    );
+  }
+
   activeOrder() {
     double width = MediaQuery.of(context).size.width;
     return Container(
@@ -172,20 +265,26 @@ class _ActiveOrdersState extends State<Orders> {
                 mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Image.asset(
-                    'assets/icons/courier.png',
-                    width: 50.0,
-                    height: 50.0,
-                    fit: BoxFit.fitHeight,
-                  ),
-                  widthSpace,
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        'Send packages',
-                        style: blackLargeTextStyle,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '#${orders[0].tripID}',
+                            style: blackLargeTextStyle,
+                          ),
+                          IconButton(
+                              onPressed: () {
+                                cancelOrderDialog(orders[0].tripID!);
+                              },
+                              icon: Icon(
+                                Icons.cancel_outlined,
+                                color: Colors.red,
+                              ))
+                        ],
                       ),
                       SizedBox(height: 5.0),
                       Row(
@@ -205,11 +304,11 @@ class _ActiveOrdersState extends State<Orders> {
                   ),
                 ],
               ),
-              Icon(
-                Icons.arrow_forward_ios,
-                size: 18.0,
-                color: greyColor,
-              ),
+              // Icon(
+              //   Icons.arrow_forward_ios,
+              //   size: 18.0,
+              //   color: greyColor,
+              // ),
             ],
           ),
           heightSpace,
@@ -348,7 +447,11 @@ class _ActiveOrdersState extends State<Orders> {
           heightSpace,
           Text(
             'Paid: \₹${orders[0].price!.toStringAsFixed(2)}',
-            style: primaryColorSmallTextStyle,
+            style: TextStyle(
+              color: blackColor,
+              fontSize: 16.0,
+              fontWeight: FontWeight.w500,
+            ),
           ),
           heightSpace,
           Row(
@@ -484,19 +587,19 @@ class _ActiveOrdersState extends State<Orders> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Image.asset(
-                          'assets/icons/courier.png',
-                          width: 50.0,
-                          height: 50.0,
-                          fit: BoxFit.fitHeight,
-                        ),
-                        widthSpace,
+                        // Image.asset(
+                        //   'assets/icons/courier.png',
+                        //   width: 50.0,
+                        //   height: 50.0,
+                        //   fit: BoxFit.fitHeight,
+                        // ),
+                        // widthSpace,
                         Column(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              'Grocery',
+                              '#${PastOrders[index].tripID}',
                               style: blackLargeTextStyle,
                             ),
                             SizedBox(height: 5.0),
@@ -517,11 +620,11 @@ class _ActiveOrdersState extends State<Orders> {
                         ),
                       ],
                     ),
-                    Icon(
-                      Icons.arrow_forward_ios,
-                      size: 18.0,
-                      color: greyColor,
-                    ),
+                    // Icon(
+                    //   Icons.arrow_forward_ios,
+                    //   size: 18.0,
+                    //   color: greyColor,
+                    // ),
                   ],
                 ),
                 heightSpace,
@@ -662,7 +765,11 @@ class _ActiveOrdersState extends State<Orders> {
                 heightSpace,
                 Text(
                   'Paid: \₹${PastOrders[index].price!.toStringAsFixed(2)}',
-                  style: primaryColorSmallTextStyle,
+                  style: TextStyle(
+                    color: blackColor,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w500,
+                  ),
                 ),
                 heightSpace,
                 Row(

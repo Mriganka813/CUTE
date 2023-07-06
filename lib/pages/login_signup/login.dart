@@ -1,9 +1,6 @@
 import 'package:cute/constant/constant.dart';
+import 'package:cute/constant/custom_snackbar.dart';
 import 'package:cute/pages/login_signup/otp_screen.dart';
-import 'package:cute/services/auth.dart';
-import 'package:cute/services/global.dart';
-import 'package:cute/services/locator.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl_phone_number_input/intl_phone_number_input.dart';
 
@@ -66,7 +63,7 @@ class _LoginState extends State<Login> {
                       heightSpace,
                       heightSpace,
                       Text(
-                        'Create an account with your mobile number',
+                        'Verify your mobile number',
                         style: greySmallTextStyle,
                       ),
                       SizedBox(height: 50.0),
@@ -133,14 +130,9 @@ class _LoginState extends State<Login> {
                       MaterialPageRoute(
                           builder: (context) => OTPScreen(phonenumber: phone)));
                 } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: Colors.red,
-                      content: Text(
-                        "Please enter valid mobile number",
-                        style: const TextStyle(color: Colors.white),
-                      ),
-                    ),
+                  SnackBarWidget.showErrorBar(
+                    context,
+                    "Please enter valid mobile number",
                   );
                 }
               },

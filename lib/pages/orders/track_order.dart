@@ -1,6 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:io';
 
+import 'package:cute/pages/orders/orders.dart';
 import 'package:cute/services/page_services/trip_info.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -155,7 +156,9 @@ class _TrackOrderState extends State<TrackOrder> {
                       InkWell(
                         onTap: () async {
                           TripInfo trip = new TripInfo();
-                          trip.endRide(widget.order.tripID!);
+                          await trip.endRide(widget.order.tripID!);
+                          Navigator.pop(context);
+                          Navigator.pop(context);
                         },
                         child: Container(
                           width: (width / 3.5),
@@ -186,40 +189,6 @@ class _TrackOrderState extends State<TrackOrder> {
       appBar: AppBar(
         backgroundColor: whiteColor,
         elevation: 1.0,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.logout_sharp, color: blackColor),
-            onPressed: () => endrideDialogue(),
-            // onPressed: () {
-            // open modal asking for confirmation to end ride
-
-            // showDialog(
-            //   context: context,
-            //   builder: (BuildContext context) {
-            //     return AlertDialog(
-            //       title: Text('End Ride'),
-            //       content: Text('Are you sure you want to end the ride?'),
-            //       actions: [
-            //         TextButton(
-            //           onPressed: () {
-            //             Navigator.pop(context);
-            //           },
-            //           child: Text('No'),
-            //         ),
-            //         TextButton(
-            //           onPressed: () {
-            //             // Navigator.pop(context);
-            //             // Navigator.pop(context);
-            //           },
-            //           child: Text('Yes'),
-            //         ),
-            //       ],
-            //     );
-            // },
-            // );
-            // },
-          ),
-        ],
         title: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -228,11 +197,6 @@ class _TrackOrderState extends State<TrackOrder> {
               'Track order',
               style: appBarBlackTextStyle,
             ),
-            // SizedBox(height: 5.0),
-            // Text(
-            //   'Package Send',
-            //   style: greySmallTextStyle,
-            // ),
           ],
         ),
         leading: IconButton(
@@ -534,27 +498,47 @@ class _TrackOrderState extends State<TrackOrder> {
                           // ),
                         ],
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Text(
-                            'Paid successfully',
-                            style: greySmallTextStyle,
+                      // Row(
+                      //   mainAxisAlignment: MainAxisAlignment.start,
+                      //   crossAxisAlignment: CrossAxisAlignment.center,
+                      //   children: [
+                      //     Text(
+                      //       'Paid successfully',
+                      //       style: greySmallTextStyle,
+                      //     ),
+                      //     SizedBox(width: 5.0),
+                      //     Container(
+                      //       width: 30.0,
+                      //       height: 30.0,
+                      //       alignment: Alignment.center,
+                      //       decoration: BoxDecoration(
+                      //         borderRadius: BorderRadius.circular(15.0),
+                      //         color: Colors.deepPurple.withOpacity(0.16),
+                      //       ),
+                      //       child: Icon(Icons.check,
+                      //           color: Colors.deepPurple, size: 18.0),
+                      //     ),
+                      //   ],
+                      // ),
+                      InkWell(
+                        onTap: () {
+                          endrideDialogue();
+                        },
+                        child: Container(
+                          padding: EdgeInsets.only(
+                            top: fixPadding * 0.7,
+                            bottom: fixPadding * 0.7,
+                            right: fixPadding * 3.0,
+                            left: fixPadding * 3.0,
                           ),
-                          SizedBox(width: 5.0),
-                          Container(
-                            width: 30.0,
-                            height: 30.0,
-                            alignment: Alignment.center,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(15.0),
-                              color: Colors.deepPurple.withOpacity(0.16),
-                            ),
-                            child: Icon(Icons.check,
-                                color: Colors.deepPurple, size: 18.0),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(40.0),
+                              color: primaryColor),
+                          child: Text(
+                            'End Ride',
+                            style: whiteBottonTextStyle,
                           ),
-                        ],
+                        ),
                       ),
                     ],
                   ),
