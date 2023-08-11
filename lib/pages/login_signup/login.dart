@@ -66,7 +66,7 @@ class _LoginState extends State<Login> {
                         'Verify your mobile number',
                         style: greySmallTextStyle,
                       ),
-                      SizedBox(height: 50.0),
+                      const SizedBox(height: 50.0),
                       Text(
                         'Mobile Number',
                         style: greySmallBoldTextStyle,
@@ -89,7 +89,7 @@ class _LoginState extends State<Login> {
                         // inputBorder: InputBorder.none,
                         inputDecoration: InputDecoration(
                           contentPadding:
-                              EdgeInsets.only(left: 20.0, bottom: 12.0),
+                              const EdgeInsets.only(left: 20.0, bottom: 12.0),
                           hintText: 'Mobile Number',
                           hintStyle: TextStyle(
                             color: greyColor,
@@ -98,7 +98,7 @@ class _LoginState extends State<Login> {
                           ),
                           // border: InputBorder.none,
                         ),
-                        selectorConfig: SelectorConfig(
+                        selectorConfig: const SelectorConfig(
                           selectorType: PhoneInputSelectorType.DIALOG,
                         ),
                         onInputChanged: (v) {
@@ -139,7 +139,7 @@ class _LoginState extends State<Login> {
               child: AnimatedContainer(
                 width: width - fixPadding * 2.0,
                 padding: EdgeInsets.all(fixPadding * 1.0),
-                duration: Duration(milliseconds: 200),
+                duration: const Duration(milliseconds: 200),
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(30.0),

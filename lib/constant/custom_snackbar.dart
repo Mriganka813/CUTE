@@ -6,7 +6,7 @@ class SnackBarWidget {
       backgroundColor: Colors.red,
       content: Text(message),
       duration: const Duration(seconds: 2),
-      shape: RoundedRectangleBorder(
+      shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(10), topRight: Radius.circular(10))),
     ));

@@ -47,7 +47,7 @@ class _WalkThroughState extends State<WalkThrough> {
                   ),
                 ],
               ),
-              Container(
+              SizedBox(
                 width: width - fixPadding * 4.0,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -151,7 +151,7 @@ class _WalkThroughState extends State<WalkThrough> {
         widthSpace,
         widthSpace,
         widthSpace,
-        Container(
+        SizedBox(
           width: width - (fixPadding * 4.0 + 70.0 + 30.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,

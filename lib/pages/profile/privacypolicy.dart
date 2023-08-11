@@ -7,14 +7,15 @@ class privacyPolicy extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(color: Colors.black),
+        iconTheme: const IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
         elevation: 0,
-        title: Text("Privacy Policy", style: TextStyle(color: Colors.black)),
+        title:
+            const Text("Privacy Policy", style: TextStyle(color: Colors.black)),
       ),
-      body: SingleChildScrollView(
+      body: const SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           child: Text('''
 This Privacy Policy outlines how Magicstep Solutions Private Limited ("we," "us," or "our") collects, uses, and safeguards the information provided by users ("you" or "your") while using the Cute mobile application ("the App"). By using the App, you agree to the terms of this Privacy Policy.
 

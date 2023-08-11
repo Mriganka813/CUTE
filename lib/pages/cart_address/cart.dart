@@ -1,7 +1,5 @@
 import 'package:cute/constant/constant.dart';
-import 'package:cute/pages/payment/payment.dart';
 import 'package:flutter/material.dart';
-import 'package:page_transition/page_transition.dart';
 
 class Cart extends StatefulWidget {
   @override
@@ -84,8 +82,8 @@ class _CartState extends State<Cart> {
                         color: whiteColor,
                       ),
                     ),
-                    SizedBox(width: 5.0),
-                    Container(
+                    const SizedBox(width: 5.0),
+                    SizedBox(
                       width: width - (fixPadding * 4.0 + 10.0 + 34.0 + 30.0),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -99,7 +97,7 @@ class _CartState extends State<Cart> {
                                 'Deliver to',
                                 style: greySmallBoldTextStyle,
                               ),
-                              SizedBox(width: 5.0),
+                              const SizedBox(width: 5.0),
                               Text(
                                 'Home',
                                 style: blackSmallBoldTextStyle,
@@ -113,12 +111,12 @@ class _CartState extends State<Cart> {
                         ],
                       ),
                     ),
-                    SizedBox(width: 5.0),
+                    const SizedBox(width: 5.0),
                     InkWell(
                       onTap: () {},
-                      child: Container(
+                      child: SizedBox(
                         width: 30.0,
-                        child: Icon(
+                        child: const Icon(
                           Icons.edit,
                           color: Colors.deepPurple,
                         ),
@@ -214,7 +212,7 @@ class _CartState extends State<Cart> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Icon(Icons.store, color: blackColor, size: 18.0),
-              SizedBox(width: 5.0),
+              const SizedBox(width: 5.0),
               Text('Item List', style: blackSmallBoldTextStyle),
             ],
           ),
@@ -224,7 +222,7 @@ class _CartState extends State<Cart> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Container(
+              SizedBox(
                 width: (width - (fixPadding * 6.0)) / 2.0,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -245,8 +243,8 @@ class _CartState extends State<Cart> {
                             color: Colors.green),
                       ),
                     ),
-                    SizedBox(width: 5.0),
-                    Container(
+                    const SizedBox(width: 5.0),
+                    SizedBox(
                       width:
                           ((width - (fixPadding * 6.0)) / 2.0) - (18.0 + 5.0),
                       child: Column(
@@ -289,7 +287,7 @@ class _CartState extends State<Cart> {
                                     'Customize',
                                     style: greyNormalTextStyle,
                                   ),
-                                  SizedBox(width: 5.0),
+                                  const SizedBox(width: 5.0),
                                   Icon(Icons.keyboard_arrow_down,
                                       size: 20.0, color: greyColor),
                                 ],
@@ -302,7 +300,7 @@ class _CartState extends State<Cart> {
                   ],
                 ),
               ),
-              Container(
+              SizedBox(
                 width: (width - (fixPadding * 8.0)) / 2.0,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -338,12 +336,12 @@ class _CartState extends State<Cart> {
                               size: 22.0,
                             ),
                           ),
-                          SizedBox(width: 5.0),
+                          const SizedBox(width: 5.0),
                           Text(
                             '$number',
                             style: primaryColorSmallTextStyle,
                           ),
-                          SizedBox(width: 5.0),
+                          const SizedBox(width: 5.0),
                           InkWell(
                             onTap: () {
                               increamentNumber();

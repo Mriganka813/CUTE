@@ -16,17 +16,17 @@ class _EditProfileState extends State<EditProfile> {
   late String email;
   var nameController = TextEditingController();
   var phoneController = TextEditingController();
-  var emailController = TextEditingController();
+  // var emailController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    name = widget.user!.userName!;
-    phone = widget.user!.phoneNumber.toString();
-    email = widget.user!.address!;
+    name = widget.user!.username!;
+    phone = widget.user!.phoneNum.toString();
+    // email = widget.user!.address!;
     nameController.text = name;
     phoneController.text = phone;
-    emailController.text = email;
+    // emailController.text = email;
   }
 
   @override
@@ -45,7 +45,7 @@ class _EditProfileState extends State<EditProfile> {
                 borderRadius: BorderRadius.circular(10.0)),
             child: Container(
               height: 210.0,
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -54,7 +54,7 @@ class _EditProfileState extends State<EditProfile> {
                     "Change Full Name",
                     style: blackHeadingTextStyle,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   TextField(
@@ -66,7 +66,7 @@ class _EditProfileState extends State<EditProfile> {
                       hintStyle: greySmallTextStyle,
                     ),
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
@@ -77,7 +77,7 @@ class _EditProfileState extends State<EditProfile> {
                         child: Container(
                           width: (width / 3.5),
                           alignment: Alignment.center,
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
                             color: Colors.grey[300],
                             borderRadius: BorderRadius.circular(5.0),
@@ -98,7 +98,7 @@ class _EditProfileState extends State<EditProfile> {
                         child: Container(
                           width: (width / 3.5),
                           alignment: Alignment.center,
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
                             color: primaryColor,
                             borderRadius: BorderRadius.circular(5.0),
@@ -131,7 +131,7 @@ class _EditProfileState extends State<EditProfile> {
                 borderRadius: BorderRadius.circular(10.0)),
             child: Container(
               height: 300.0,
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -140,12 +140,12 @@ class _EditProfileState extends State<EditProfile> {
                     "Change Your Password",
                     style: blackHeadingTextStyle,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   TextField(
                     obscureText: true,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w700,
                       fontFamily: 'Signika Negative',
@@ -157,7 +157,7 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                   TextField(
                     obscureText: true,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w700,
                       fontFamily: 'Signika Negative',
@@ -169,7 +169,7 @@ class _EditProfileState extends State<EditProfile> {
                   ),
                   TextField(
                     obscureText: true,
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 16.0,
                       fontWeight: FontWeight.w700,
                       fontFamily: 'Signika Negative',
@@ -179,7 +179,7 @@ class _EditProfileState extends State<EditProfile> {
                       hintStyle: greySmallTextStyle,
                     ),
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
@@ -190,7 +190,7 @@ class _EditProfileState extends State<EditProfile> {
                         child: Container(
                           width: (width / 3.5),
                           alignment: Alignment.center,
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
                             color: Colors.grey[300],
                             borderRadius: BorderRadius.circular(5.0),
@@ -208,7 +208,7 @@ class _EditProfileState extends State<EditProfile> {
                         child: Container(
                           width: (width / 3.5),
                           alignment: Alignment.center,
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
                             color: primaryColor,
                             borderRadius: BorderRadius.circular(5.0),
@@ -241,7 +241,7 @@ class _EditProfileState extends State<EditProfile> {
                 borderRadius: BorderRadius.circular(10.0)),
             child: Container(
               height: 200.0,
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -250,7 +250,7 @@ class _EditProfileState extends State<EditProfile> {
                     "Change Phone Number",
                     style: blackHeadingTextStyle,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   TextField(
@@ -262,7 +262,7 @@ class _EditProfileState extends State<EditProfile> {
                       hintStyle: greySmallTextStyle,
                     ),
                   ),
-                  SizedBox(height: 20.0),
+                  const SizedBox(height: 20.0),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: <Widget>[
@@ -273,7 +273,7 @@ class _EditProfileState extends State<EditProfile> {
                         child: Container(
                           width: (width / 3.5),
                           alignment: Alignment.center,
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
                             color: Colors.grey[300],
                             borderRadius: BorderRadius.circular(5.0),
@@ -294,7 +294,7 @@ class _EditProfileState extends State<EditProfile> {
                         child: Container(
                           width: (width / 3.5),
                           alignment: Alignment.center,
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
                             color: primaryColor,
                             borderRadius: BorderRadius.circular(5.0),
@@ -315,88 +315,88 @@ class _EditProfileState extends State<EditProfile> {
       );
     }
 
-    changeAddress() {
-      showDialog(
-        context: context,
-        barrierDismissible: false,
-        builder: (BuildContext context) {
-          // return object of type Dialog
-          return Dialog(
-            elevation: 0.0,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10.0)),
-            child: Container(
-              height: 200.0,
-              padding: EdgeInsets.all(20.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  Text(
-                    "Change Address",
-                    style: blackHeadingTextStyle,
-                  ),
-                  SizedBox(
-                    height: 20.0,
-                  ),
-                  TextField(
-                    controller: emailController,
-                    style: blackHeadingTextStyle,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      hintText: 'Enter Your Address',
-                      hintStyle: greySmallTextStyle,
-                    ),
-                  ),
-                  SizedBox(height: 20.0),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      InkWell(
-                        onTap: () {
-                          Navigator.pop(context);
-                        },
-                        child: Container(
-                          width: (width / 3.5),
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.all(10.0),
-                          decoration: BoxDecoration(
-                            color: Colors.grey[300],
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          child: Text('Cancel', style: blackBottonTextStyle),
-                        ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          setState(() {
-                            email = emailController.text;
-                            Navigator.pop(context);
-                          });
-                        },
-                        child: Container(
-                          width: (width / 3.5),
-                          alignment: Alignment.center,
-                          padding: EdgeInsets.all(10.0),
-                          decoration: BoxDecoration(
-                            color: primaryColor,
-                            borderRadius: BorderRadius.circular(5.0),
-                          ),
-                          child: Text(
-                            'Okay',
-                            style: whiteBottonTextStyle,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          );
-        },
-      );
-    }
+    // changeAddress() {
+    //   showDialog(
+    //     context: context,
+    //     barrierDismissible: false,
+    //     builder: (BuildContext context) {
+    //       // return object of type Dialog
+    //       return Dialog(
+    //         elevation: 0.0,
+    //         shape: RoundedRectangleBorder(
+    //             borderRadius: BorderRadius.circular(10.0)),
+    //         child: Container(
+    //           height: 200.0,
+    //           padding: EdgeInsets.all(20.0),
+    //           child: Column(
+    //             mainAxisAlignment: MainAxisAlignment.center,
+    //             crossAxisAlignment: CrossAxisAlignment.center,
+    //             children: <Widget>[
+    //               Text(
+    //                 "Change Address",
+    //                 style: blackHeadingTextStyle,
+    //               ),
+    //               SizedBox(
+    //                 height: 20.0,
+    //               ),
+    //               TextField(
+    //                 controller: emailController,
+    //                 style: blackHeadingTextStyle,
+    //                 keyboardType: TextInputType.emailAddress,
+    //                 decoration: InputDecoration(
+    //                   hintText: 'Enter Your Address',
+    //                   hintStyle: greySmallTextStyle,
+    //                 ),
+    //               ),
+    //               SizedBox(height: 20.0),
+    //               Row(
+    //                 mainAxisAlignment: MainAxisAlignment.spaceAround,
+    //                 children: <Widget>[
+    //                   InkWell(
+    //                     onTap: () {
+    //                       Navigator.pop(context);
+    //                     },
+    //                     child: Container(
+    //                       width: (width / 3.5),
+    //                       alignment: Alignment.center,
+    //                       padding: EdgeInsets.all(10.0),
+    //                       decoration: BoxDecoration(
+    //                         color: Colors.grey[300],
+    //                         borderRadius: BorderRadius.circular(5.0),
+    //                       ),
+    //                       child: Text('Cancel', style: blackBottonTextStyle),
+    //                     ),
+    //                   ),
+    //                   InkWell(
+    //                     onTap: () {
+    //                       setState(() {
+    //                         email = emailController.text;
+    //                         Navigator.pop(context);
+    //                       });
+    //                     },
+    //                     child: Container(
+    //                       width: (width / 3.5),
+    //                       alignment: Alignment.center,
+    //                       padding: EdgeInsets.all(10.0),
+    //                       decoration: BoxDecoration(
+    //                         color: primaryColor,
+    //                         borderRadius: BorderRadius.circular(5.0),
+    //                       ),
+    //                       child: Text(
+    //                         'Okay',
+    //                         style: whiteBottonTextStyle,
+    //                       ),
+    //                     ),
+    //                   ),
+    //                 ],
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //       );
+    //     },
+    //   );
+    // }
 
     return Scaffold(
       backgroundColor: scaffoldBgColor,
@@ -485,10 +485,10 @@ class _EditProfileState extends State<EditProfile> {
               ),
               // Phone End
               // Email Start
-              InkWell(
-                onTap: changeAddress,
-                child: getTile('Address', email),
-              ),
+              // InkWell(
+              //   onTap: changeAddress,
+              //   child: getTile('Address', email),
+              // ),
               // Email End
             ],
           ),
@@ -512,7 +512,7 @@ class _EditProfileState extends State<EditProfile> {
         color: whiteColor,
         borderRadius: BorderRadius.circular(5.0),
         boxShadow: <BoxShadow>[
-          BoxShadow(
+          const BoxShadow(
             blurRadius: 1.5,
             spreadRadius: 1.5,
             color: Colors.grey,
@@ -523,19 +523,19 @@ class _EditProfileState extends State<EditProfile> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
-          Container(
+          SizedBox(
             width: width - 80.0,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
-                Container(
+                SizedBox(
                   width: (width - 80.0) / 2.4,
                   child: Text(
                     title,
                     style: greyNormalTextStyle,
                   ),
                 ),
-                Container(
+                SizedBox(
                   width: (width - 80.0) / 2.0,
                   child: Text(
                     value,
@@ -567,12 +567,12 @@ class _EditProfileState extends State<EditProfile> {
               children: <Widget>[
                 Container(
                   child: Container(
-                    padding: EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
                       children: <Widget>[
                         Container(
                           width: width,
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           child: Text(
                             'Choose Option',
                             textAlign: TextAlign.center,
@@ -585,7 +585,7 @@ class _EditProfileState extends State<EditProfile> {
                           },
                           child: Container(
                             width: width,
-                            padding: EdgeInsets.all(10.0),
+                            padding: const EdgeInsets.all(10.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -595,7 +595,7 @@ class _EditProfileState extends State<EditProfile> {
                                   color: Colors.black.withOpacity(0.7),
                                   size: 18.0,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10.0,
                                 ),
                                 Text('Camera', style: inputTextStyle),
@@ -609,7 +609,7 @@ class _EditProfileState extends State<EditProfile> {
                           },
                           child: Container(
                             width: width,
-                            padding: EdgeInsets.all(10.0),
+                            padding: const EdgeInsets.all(10.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.center,
@@ -619,7 +619,7 @@ class _EditProfileState extends State<EditProfile> {
                                   color: Colors.black.withOpacity(0.7),
                                   size: 18.0,
                                 ),
-                                SizedBox(
+                                const SizedBox(
                                   width: 10.0,
                                 ),
                                 Text(

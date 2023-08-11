@@ -1,10 +1,6 @@
-import 'dart:io';
-
 import 'package:cute/model/Input/signupinput.dart';
 import 'package:cute/model/Input/user.dart';
 import 'package:cute/services/api_v1.dart';
-import 'package:cute/services/const.dart';
-import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart' as fb;
 import 'package:shared_preferences/shared_preferences.dart';
 // import 'package:shopos/src/models/input/sign_up_input.dart';
@@ -42,19 +38,19 @@ class AuthService {
     );
     await signInRequest(input.phoneNumber!);
     // await saveCookie(response);
-    // return SignUpInput.fromMap(response.data['user']);
+    return SignUpInput.fromMap(response.data);
   }
 
   /// Save cookies after sign in/up
-  Future<void> saveCookie(Response response) async {
-    List<Cookie> cookies = [Cookie("token", response.data['token'])];
-    final cj = await ApiV1Service.getCookieJar();
-    await cj.saveFromResponse(Uri.parse(Const.apiUrl), cookies);
-  }
+  // Future<void> saveCookie(Response response) async {
+  //   List<Cookie> cookies = [Cookie("token", response.data['token'])];
+  //   final cj = await ApiV1Service.getCookieJar();
+  //   await cj.saveFromResponse(Uri.parse(Const.apiUrl), cookies);
+  // }
 
   ///
   Future<void> signOut() async {
-    await clearCookies();
+    // await clearCookies();
     await SharedPreferences.getInstance().then((prefs) {
       prefs.clear();
     });
@@ -62,10 +58,10 @@ class AuthService {
   }
 
   /// Clear cookies before log out
-  Future<void> clearCookies() async {
-    final cj = await ApiV1Service.getCookieJar();
-    await cj.deleteAll();
-  }
+  // Future<void> clearCookies() async {
+  //   final cj = await ApiV1Service.getCookieJar();
+  //   await cj.deleteAll();
+  // }
 
   /// Send sign in request
   ///
@@ -87,6 +83,7 @@ class AuthService {
     final String refresh_token = token['refresh'];
     await prefs.setString('access_token', access_token);
     await prefs.setString('refresh_token', refresh_token);
+    print(access_token);
     print("toekn saved succesfully");
     return null;
     // return User.fromMap(response.data['user']);
@@ -101,8 +98,8 @@ class AuthService {
     try {
       await ApiV1Service.getRequest('/auth', token: access_token).then((value) {
         print(value.data['user']);
-        usr = User.fromMap(value.data['user']);
-        return User.fromMap(value.data['user']);
+        usr = User.fromJson(value.data['user']);
+        return User.fromJson(value.data['user']);
       });
     } catch (e) {
       print("token expired");
@@ -120,6 +117,7 @@ class AuthService {
   getNewToken() async {
     final prefs = await SharedPreferences.getInstance();
     final String refresh_token = prefs.getString('refresh_token') ?? "";
+    print(refresh_token);
     final response =
         await ApiV1Service.getRequest('/auth/newtoken', token: refresh_token);
     if ((response.statusCode ?? 400) > 300) {

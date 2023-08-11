@@ -1,5 +1,4 @@
 import 'package:cute/constant/constant.dart';
-import 'package:cute/constant/custom_snackbar.dart';
 import 'package:cute/constant/key.dart';
 import 'package:cute/model/Input/NewTripInput.dart';
 import 'package:cute/model/Input/vehicle.dart';
@@ -174,7 +173,7 @@ class _SendPackagesState extends State<SendPackages> {
                     parcel = false;
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   width: (width - (fixPadding * 6.0)) / 2.0,
                   child: Column(
                     children: [
@@ -196,7 +195,7 @@ class _SendPackagesState extends State<SendPackages> {
                           padding: EdgeInsets.only(right: fixPadding * 2.0),
                           height: 170.0,
                           alignment: Alignment.topRight,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             image: DecorationImage(
                               image:
                                   AssetImage('assets/icons/document_type.png'),
@@ -240,7 +239,7 @@ class _SendPackagesState extends State<SendPackages> {
                     parcel = true;
                   });
                 },
-                child: Container(
+                child: SizedBox(
                   width: (width - (fixPadding * 6.0)) / 2.0,
                   child: Column(
                     children: [
@@ -262,7 +261,7 @@ class _SendPackagesState extends State<SendPackages> {
                           padding: EdgeInsets.only(right: fixPadding * 2.0),
                           height: 170.0,
                           alignment: Alignment.topRight,
-                          decoration: BoxDecoration(
+                          decoration: const BoxDecoration(
                             image: DecorationImage(
                               image: AssetImage('assets/icons/parcel_type.png'),
                               fit: BoxFit.fitHeight,
@@ -332,7 +331,7 @@ class _SendPackagesState extends State<SendPackages> {
                   decoration: InputDecoration(
                     hintText: 'Please Enter Package Height in cm',
                     hintStyle: inputTextStyle,
-                    contentPadding: EdgeInsets.all(10.0),
+                    contentPadding: const EdgeInsets.all(10.0),
                     border: InputBorder.none,
                   ),
                   onChanged: (v) {
@@ -373,7 +372,7 @@ class _SendPackagesState extends State<SendPackages> {
                   decoration: InputDecoration(
                     hintText: 'Please Enter Package Width in cm',
                     hintStyle: inputTextStyle,
-                    contentPadding: EdgeInsets.all(10.0),
+                    contentPadding: const EdgeInsets.all(10.0),
                     border: InputBorder.none,
                   ),
                   onChanged: (v) {
@@ -414,7 +413,7 @@ class _SendPackagesState extends State<SendPackages> {
                   decoration: InputDecoration(
                     hintText: 'Please Enter Package Depth in cm',
                     hintStyle: inputTextStyle,
-                    contentPadding: EdgeInsets.all(10.0),
+                    contentPadding: const EdgeInsets.all(10.0),
                     border: InputBorder.none,
                   ),
                   onChanged: (v) {
@@ -455,7 +454,7 @@ class _SendPackagesState extends State<SendPackages> {
                   decoration: InputDecoration(
                     hintText: 'Please Enter Package Weight in kg',
                     hintStyle: inputTextStyle,
-                    contentPadding: EdgeInsets.all(10.0),
+                    contentPadding: const EdgeInsets.all(10.0),
                     border: InputBorder.none,
                   ),
                   onChanged: (v) {
@@ -487,7 +486,7 @@ class _SendPackagesState extends State<SendPackages> {
     double height = MediaQuery.of(context).size.height;
     return ListView(
       children: [
-        Container(
+        SizedBox(
           width: width,
           // height: height - 85.0,
           child: Center(
@@ -495,7 +494,7 @@ class _SendPackagesState extends State<SendPackages> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Container(
+                SizedBox(
                     // color: Colors.amber,
                     height: height / 1.1,
                     child: PlacePicker(
@@ -525,7 +524,8 @@ class _SendPackagesState extends State<SendPackages> {
                                 width: width / 1.2,
                                 borderRadius: BorderRadius.circular(12.0),
                                 child: state == SearchingState.Searching
-                                    ? Center(child: CircularProgressIndicator())
+                                    ? const Center(
+                                        child: CircularProgressIndicator())
                                     : ElevatedButton(
                                         style: ElevatedButton.styleFrom(
                                           shape: RoundedRectangleBorder(
@@ -533,7 +533,8 @@ class _SendPackagesState extends State<SendPackages> {
                                                 BorderRadius.circular(12.0),
                                           ),
                                         ),
-                                        child: Text("Select pickup location",
+                                        child: const Text(
+                                            "Select pickup location",
                                             style: TextStyle(fontSize: 20)),
                                         onPressed: () {
                                           print(pickuplocation);
@@ -626,7 +627,7 @@ class _SendPackagesState extends State<SendPackages> {
     double height = MediaQuery.of(context).size.height;
     return ListView(
       children: [
-        Container(
+        SizedBox(
           width: width,
           // height: height - 85.0,
           child: Center(
@@ -634,7 +635,7 @@ class _SendPackagesState extends State<SendPackages> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
-                Container(
+                SizedBox(
                   height: height / 1.1,
                   child: PlacePicker(
                     apiKey: googleMapKey,
@@ -662,7 +663,8 @@ class _SendPackagesState extends State<SendPackages> {
                               width: width / 1.2,
                               borderRadius: BorderRadius.circular(12.0),
                               child: state == SearchingState.Searching
-                                  ? Center(child: CircularProgressIndicator())
+                                  ? const Center(
+                                      child: CircularProgressIndicator())
                                   : ElevatedButton(
                                       style: ElevatedButton.styleFrom(
                                         shape: RoundedRectangleBorder(
@@ -670,7 +672,7 @@ class _SendPackagesState extends State<SendPackages> {
                                               BorderRadius.circular(12.0),
                                         ),
                                       ),
-                                      child: Text("Select drop location",
+                                      child: const Text("Select drop location",
                                           style: TextStyle(fontSize: 20)),
                                       onPressed: () async {
                                         // Navigator.pop(context, selectedPlace);
@@ -899,7 +901,7 @@ class _SendPackagesState extends State<SendPackages> {
         children: [
           Column(
             children: [
-              Container(
+              SizedBox(
                 height: height / 3,
                 child: RouteMap(
                     sourceLat: selectedPickupPlace!.geometry!.location.lat,
@@ -911,29 +913,29 @@ class _SendPackagesState extends State<SendPackages> {
               ),
               InkWell(
                 onTap: () async {
-                  TripInfo tripdetail = new TripInfo();
+                  TripInfo tripdetail = TripInfo();
                   SharedPreferences prefs =
                       await SharedPreferences.getInstance();
                   tripdetail.getVehicalList(prefs.getString('access_token'),
                       pickuplocation, droplocatioon);
                 },
-                child: Container(
-                    child: Text("Choose your vehicle",
-                        style: primaryColorHeadingTextStyle)),
+                child: Text("Choose your vehicle",
+                    style: primaryColorHeadingTextStyle),
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 0),
-                child: Container(
+                child: SizedBox(
                   height: height / 3.9,
                   child: ListView.builder(
                     itemCount: vehicleList.length - 1,
                     itemBuilder: (BuildContext context, int index) {
                       return ListTile(
                         title: Text('${vehicleList[index].vehicleType}',
-                            style: TextStyle(fontWeight: FontWeight.w600)),
+                            style:
+                                const TextStyle(fontWeight: FontWeight.w600)),
                         subtitle:
                             Text('\₹ ${vehicleList[index].pricePerKM} / km'),
-                        leading: Icon(Icons.local_taxi),
+                        leading: const Icon(Icons.local_taxi),
                         // leading: CircleAvatar(
                         //   backgroundImage:
                         //       AssetImage('assets/delivery_boy.jpg'),
@@ -943,7 +945,7 @@ class _SendPackagesState extends State<SendPackages> {
                             : _selectedVehical == index
                                 ? primaryColor.withOpacity(0.1)
                                 : Colors.white,
-                        trailing: Text('Available'),
+                        trailing: const Text('Available'),
                         onTap: () {
                           setState(() {
                             // _selectedVehicle = vehicleList[index];
@@ -973,7 +975,7 @@ class _SendPackagesState extends State<SendPackages> {
           padding: const EdgeInsets.only(bottom: 10.0, top: 10),
           child: Column(
             children: [
-              Divider(),
+              const Divider(),
               Container(
                 color: primaryColor.withOpacity(0.2),
                 height: height / 11,
@@ -987,7 +989,7 @@ class _SendPackagesState extends State<SendPackages> {
                           'Distance: ${vehicleList[vehicleList.length - 1].distance!.toStringAsFixed(2)} km',
                           // 'Distance: ${(calculateDistance(selectedPickupPlace!.geometry!.location.lat, selectedPickupPlace!.geometry!.location.lng, selectedDeliveryPlace!.geometry!.location.lat, selectedDeliveryPlace!.geometry!.location.lng)).toStringAsFixed(2)} km',
                           style: primaryColorHeadingTextStyle),
-                      SizedBox(height: 5.0),
+                      const SizedBox(height: 5.0),
                       _newTrip.price == null
                           ? Text('Price: \₹0.00',
                               style: primaryColorHeadingTextStyle)
@@ -998,7 +1000,7 @@ class _SendPackagesState extends State<SendPackages> {
                   ),
                 ),
               ),
-              Divider(),
+              const Divider(),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [backButton(), continueButton()],
@@ -1069,7 +1071,7 @@ class _SendPackagesState extends State<SendPackages> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           child: Container(
             height: 150.0,
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -1103,7 +1105,7 @@ class _SendPackagesState extends State<SendPackages> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           child: Container(
             height: 150.0,
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -1123,7 +1125,7 @@ class _SendPackagesState extends State<SendPackages> {
       },
     );
 
-    Future.delayed(Duration(seconds: 2), () {
+    Future.delayed(const Duration(seconds: 2), () {
       Navigator.pop(context);
     });
   }

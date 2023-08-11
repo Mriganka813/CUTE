@@ -4,7 +4,7 @@ publish_to: 'none'
 version: 2.1.0+7
 
 environment:
-  sdk: '>=3.0.5 <4.0.0'
+  sdk: '>=3.0.3 <4.0.0'
 
 dependencies:
   flutter:
@@ -38,6 +38,8 @@ dependencies:
   shared_preferences: ^2.0.20
   socket_io_client: ^2.0.1
   new_version_plus: ^0.0.9
+  http: 
+  url_launcher: ^6.1.12
 
 dev_dependencies:
   flutter_test:

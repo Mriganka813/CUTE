@@ -55,7 +55,7 @@ class _GetGroceryDeliverState extends State<GetGroceryDeliver> {
             },
           ),
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(160.0),
+            preferredSize: const Size.fromHeight(160.0),
             child: Column(
               children: [
                 Container(
@@ -115,15 +115,15 @@ class _GetGroceryDeliverState extends State<GetGroceryDeliver> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(Icons.timer, color: greyColor, size: 18.0),
-                          SizedBox(width: 3.0),
+                          const SizedBox(width: 3.0),
                           Text(
                             '15 mins, Free delivery',
                             style: inputTextStyle,
                           ),
                         ],
                       ),
-                      SizedBox(height: 5.0),
-                      Row(
+                      const SizedBox(height: 5.0),
+                      const Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(Icons.local_offer,
@@ -141,7 +141,8 @@ class _GetGroceryDeliverState extends State<GetGroceryDeliver> {
                 Container(
                   child: TabBar(
                     indicatorColor: primaryColor,
-                    indicatorPadding: EdgeInsets.only(right: 15.0, left: 15.0),
+                    indicatorPadding:
+                        const EdgeInsets.only(right: 15.0, left: 15.0),
                     isScrollable: true,
                     tabs: [
                       Tab(text: 'Bestseller'.toUpperCase()),
@@ -171,7 +172,7 @@ class _GetGroceryDeliverState extends State<GetGroceryDeliver> {
     double width = MediaQuery.of(context).size.width;
     return ListView.builder(
       itemCount: itemListData.length,
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         final item = itemListData[index];
         return Container(
@@ -193,7 +194,7 @@ class _GetGroceryDeliverState extends State<GetGroceryDeliver> {
                 fit: BoxFit.fitHeight,
               ),
               widthSpace,
-              Container(
+              SizedBox(
                 width: width - (fixPadding * 4.0 + 75.0 + 10.0 + 100.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -311,7 +312,7 @@ class _GetGroceryDeliverState extends State<GetGroceryDeliver> {
                                     color: Colors.green),
                               ),
                             ),
-                            SizedBox(width: 5.0),
+                            const SizedBox(width: 5.0),
                             Text(
                               'Best Plus Egg',
                               style: greySmallTextStyle,
@@ -489,7 +490,7 @@ class _GetGroceryDeliverState extends State<GetGroceryDeliver> {
                               ),
                             ],
                           ),
-                          SizedBox(height: 15.0),
+                          const SizedBox(height: 15.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -502,7 +503,7 @@ class _GetGroceryDeliverState extends State<GetGroceryDeliver> {
                                     'Item Total',
                                     style: blackHeadingTextStyle,
                                   ),
-                                  SizedBox(width: 5.0),
+                                  const SizedBox(width: 5.0),
                                   Container(
                                     width: 10.0,
                                     height: 10.0,
@@ -511,7 +512,7 @@ class _GetGroceryDeliverState extends State<GetGroceryDeliver> {
                                       color: Colors.grey[400],
                                     ),
                                   ),
-                                  SizedBox(width: 5.0),
+                                  const SizedBox(width: 5.0),
                                   Text(
                                     '\$5',
                                     style: priceTextStyle,

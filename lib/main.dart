@@ -1,4 +1,3 @@
-import 'package:cute/appBehaviour/my_behaviour.dart';
 import 'package:cute/constant/constant.dart';
 import 'package:cute/pages/splashScreen.dart';
 import 'package:cute/services/global.dart';

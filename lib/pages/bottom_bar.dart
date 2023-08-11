@@ -37,7 +37,7 @@ class _BottomBarState extends State<BottomBar> {
         opacity: 0.2,
         currentIndex: currentIndex,
         onTap: changePage,
-        borderRadius: BorderRadius.vertical(
+        borderRadius: const BorderRadius.vertical(
             top: Radius.circular(
                 16)), //border radius doesn't work when the notch is enabled.
         elevation: 8,
@@ -144,7 +144,7 @@ class _BottomBarState extends State<BottomBar> {
   onWillPop() {
     DateTime now = DateTime.now();
     if (currentBackPressTime == null ||
-        now.difference(currentBackPressTime!) > Duration(seconds: 2)) {
+        now.difference(currentBackPressTime!) > const Duration(seconds: 2)) {
       currentBackPressTime = now;
       Fluttertoast.showToast(
         msg: 'Press Back Once Again to Exit.',

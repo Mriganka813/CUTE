@@ -82,7 +82,7 @@ class _GetFoodDeliverState extends State<GetFoodDeliver> {
         ),
         body: ListView.builder(
           itemCount: restaurantsList.length,
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           itemBuilder: (context, index) {
             final item = restaurantsList[index];
             return InkWell(
@@ -134,14 +134,14 @@ class _GetFoodDeliverState extends State<GetFoodDeliver> {
                           Text(item['type']!,
                               style: primaryColorSmallTextStyle),
                           Text(item['address']!, style: inputTextStyle),
-                          SizedBox(height: 3.0),
+                          const SizedBox(height: 3.0),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Icon(Icons.timer,
                                   color: primaryColor, size: 18.0),
-                              SizedBox(width: 5.0),
+                              const SizedBox(width: 5.0),
                               Text(
                                 (item['deliverey'] != '')
                                     ? '${item['time']}, ${item['deliverey']}'
@@ -151,20 +151,20 @@ class _GetFoodDeliverState extends State<GetFoodDeliver> {
                             ],
                           ),
                           (item['offer'] != '')
-                              ? SizedBox(height: 5.0)
+                              ? const SizedBox(height: 5.0)
                               : Container(),
                           (item['offer'] != '')
                               ? Row(
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
-                                    Icon(Icons.local_offer,
+                                    const Icon(Icons.local_offer,
                                         color: Colors.deepPurple, size: 18.0),
-                                    SizedBox(width: 5.0),
+                                    const SizedBox(width: 5.0),
                                     Text(
                                       item['offer']!,
-                                      style:
-                                          TextStyle(color: Colors.deepPurple),
+                                      style: const TextStyle(
+                                          color: Colors.deepPurple),
                                     ),
                                   ],
                                 )

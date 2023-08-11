@@ -41,7 +41,7 @@ class Order {
   String? otp;
 
   factory Order.fromMap(Map<String, dynamic> json) => Order(
-        price: json["price"],
+        price: double.parse(json["price"].toString()),
         vehicleID: json["vehicleId"],
         pickup_lat: json["pickup"].values.elementAt(0).toString(),
         pickup_long: json["pickup"].values.elementAt(1).toString(),

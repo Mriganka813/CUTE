@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cute/model/Input/NewTripInput.dart';
 import 'package:cute/model/Input/order.dart';
 import 'package:cute/model/Input/vehicle.dart';
@@ -12,9 +10,9 @@ import '../const.dart';
 
 class TripInfo {
   TripInfo();
-  AuthService auth = new AuthService();
+  AuthService auth = AuthService();
 
-  // Vehicle List
+  // Vehicle List and delivery charge calculation
   Future<List<Vehicle>> getVehicalList(token, pickup, drop) async {
     List<Vehicle> vehicle = [];
     String pickupLat = decodelocation(pickup, 0).toString();
@@ -27,15 +25,18 @@ class TripInfo {
             token: token)
         .then((value) {
       print(value);
+      final res = value.data['output'];
+      print(res);
       final _vehicle = List.generate(
-        value.data['vehicles'].length,
+        res['vehicles'].length,
         (int index) => Vehicle.fromMap(
-          value.data['vehicles'][index],
+          res['vehicles'][index] as Map<String, dynamic>,
         ),
       );
       // _vehicle.add(value.data['distance']);
       // print(value.data['distance']);
-      Vehicle dis_vehicle = Vehicle(distance: value.data['distance']);
+      print(_vehicle);
+      Vehicle dis_vehicle = Vehicle(distance: res['distance']);
       _vehicle.add(dis_vehicle);
       vehicle = _vehicle;
       print(vehicle);
@@ -45,6 +46,7 @@ class TripInfo {
     return vehicle;
   }
 
+  /// create new trip
   Future<void> createTrip(NewTripInput input) async {
     print(input.toMap());
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -62,7 +64,7 @@ class TripInfo {
     IO.Socket socket;
     socket = IO.io(Const.socketUrl, <String, dynamic>{
       'transports': ['websocket'],
-      'query': {'accessToken': '$token', 'role': 'CUSTOMER'}
+      'query': {'accessToken': 'Bearer $token', 'role': 'CUSTOMER'}
     });
 
     // success
@@ -189,6 +191,22 @@ class TripInfo {
     return orderhistory;
   }
 
+  ///driver phone number
+  Future<int> driverNumber(String tripID) async {
+    int? phoneNumber;
+    try {
+      final response = await ApiV1Service.getRequest(
+        'trips/confirmed/driver-number/$tripID',
+      );
+
+      final data = response.data;
+      phoneNumber = data['drivernum'];
+    } catch (e) {
+      print(e.toString());
+    }
+    return phoneNumber!;
+  }
+
   // END RIDE
   Future<void> endRide(String tripID) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -208,8 +226,8 @@ class TripInfo {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String token = prefs.getString('access_token')!;
     print(token);
-    await ApiV1Service.patchRequest(
-            '/trips/confirmed/$tripID/cancel',
+    print(tripID);
+    await ApiV1Service.patchRequest('/trips/confirmed/$tripID/cancel',
             token: token)
         .catchError((e) {
       print(e);

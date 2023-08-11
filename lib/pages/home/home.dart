@@ -1,10 +1,5 @@
-import 'dart:async';
-
 import 'package:cute/constant/constant.dart';
-import 'package:cute/pages/courier/get_food_deliver.dart';
-import 'package:cute/pages/courier/get_grocery_deliver.dart';
 import 'package:cute/pages/courier/send_packages.dart';
-import 'package:cute/pages/invite_friend/invite_friend.dart';
 import 'package:cute/pages/profile/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';

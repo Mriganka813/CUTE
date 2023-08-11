@@ -2,18 +2,19 @@ import 'dart:io';
 
 import 'package:cookie_jar/cookie_jar.dart';
 import 'package:cute/services/const.dart';
-import 'package:cute/services/dio_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_cookie_manager/dio_cookie_manager.dart';
 import 'package:path_provider/path_provider.dart';
+
+import 'dio_interceptor.dart';
 
 class ApiV1Service {
   static final Dio _dio = Dio(
     BaseOptions(
       contentType: 'application/json',
       baseUrl: Const.apiV1Url,
-      connectTimeout: Duration(milliseconds: 10000),
-      receiveTimeout: Duration(milliseconds: 50000),
+      connectTimeout: const Duration(milliseconds: 10000),
+      receiveTimeout: const Duration(milliseconds: 50000),
     ),
   );
   const ApiV1Service();

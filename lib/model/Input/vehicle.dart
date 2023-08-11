@@ -15,7 +15,7 @@ class Vehicle {
   String? serviceAreaID;
 
   factory Vehicle.fromMap(Map<String, dynamic> json) => Vehicle(
-      price: json["price"],
+      price: double.parse(json["price"].toString()),
       pricePerKM: json["pricePerKm"],
       vehicleType: json["name"],
       vehicleId: json["id"],

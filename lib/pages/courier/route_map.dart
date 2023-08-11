@@ -58,7 +58,7 @@ class _RouteMapState extends State<RouteMap> {
     sourceLocatioon = LatLng(widget.sourceLat, widget.sourceLang);
     destLocatioon = LatLng(widget.destinationLat, widget.destinationLang);
     driverLocatioon = widget.driverLat == null
-        ? LatLng(0, 0)
+        ? const LatLng(0, 0)
         : LatLng(widget.driverLat, widget.driverLang);
     setSourceAndDestinationIcons();
     if (widget.socket != null) socketListener();
@@ -77,7 +77,7 @@ class _RouteMapState extends State<RouteMap> {
       _markers.removeWhere(
           (element) => element.markerId.value == 'driverlocationPin');
       _markers.add(Marker(
-          markerId: MarkerId('driverlocationPin'),
+          markerId: const MarkerId('driverlocationPin'),
           position: driverLocatioon!,
           icon: driverIcon!));
     });
@@ -85,11 +85,11 @@ class _RouteMapState extends State<RouteMap> {
 
   void setSourceAndDestinationIcons() async {
     sourceIcon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.5), 'assets/start2.png');
+        const ImageConfiguration(devicePixelRatio: 2.5), 'assets/start2.png');
     destinationIcon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.5), 'assets/end2.png');
+        const ImageConfiguration(devicePixelRatio: 2.5), 'assets/end2.png');
     driverIcon = await BitmapDescriptor.fromAssetImage(
-        ImageConfiguration(devicePixelRatio: 2.5), 'assets/driver2.png');
+        const ImageConfiguration(devicePixelRatio: 2.5), 'assets/driver2.png');
   }
 
   @override
@@ -123,18 +123,18 @@ class _RouteMapState extends State<RouteMap> {
     setState(() {
       // source pin
       _markers.add(Marker(
-          markerId: MarkerId('sourcePin'),
+          markerId: const MarkerId('sourcePin'),
           position: sourceLocatioon!,
           icon: sourceIcon!));
       // destination pin
       _markers.add(Marker(
-          markerId: MarkerId('destPin'),
+          markerId: const MarkerId('destPin'),
           position: destLocatioon!,
           icon: destinationIcon!));
       // driver location pin
       if (widget.driverLat != null) {
         _markers.add(Marker(
-            markerId: MarkerId('driverlocationPin'),
+            markerId: const MarkerId('driverlocationPin'),
             position: driverLocatioon!,
             icon: driverIcon!));
       }
@@ -162,7 +162,7 @@ class _RouteMapState extends State<RouteMap> {
       // create a Polyline instance
       // with an id, an RGB color and the list of LatLng pairs
       Polyline polyline = Polyline(
-          polylineId: PolylineId("poly"),
+          polylineId: const PolylineId("poly"),
           width: 5,
           color: Colors.black,
           points: polylineCoordinates);

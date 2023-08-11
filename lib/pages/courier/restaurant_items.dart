@@ -55,7 +55,7 @@ class _RestaurantItemsState extends State<RestaurantItems> {
             },
           ),
           bottom: PreferredSize(
-            preferredSize: Size.fromHeight(220.0),
+            preferredSize: const Size.fromHeight(220.0),
             child: Column(
               children: [
                 Container(
@@ -80,15 +80,15 @@ class _RestaurantItemsState extends State<RestaurantItems> {
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(Icons.timer, color: greyColor, size: 18.0),
-                          SizedBox(width: 3.0),
+                          const SizedBox(width: 3.0),
                           Text(
                             '42 mins delivery',
                             style: inputTextStyle,
                           ),
                         ],
                       ),
-                      SizedBox(height: 5.0),
-                      Row(
+                      const SizedBox(height: 5.0),
+                      const Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Icon(Icons.local_offer,
@@ -100,7 +100,7 @@ class _RestaurantItemsState extends State<RestaurantItems> {
                           ),
                         ],
                       ),
-                      SizedBox(height: 5.0),
+                      const SizedBox(height: 5.0),
                       Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
@@ -108,7 +108,7 @@ class _RestaurantItemsState extends State<RestaurantItems> {
                             'VEG ONLY',
                             style: greyNormalTextStyle,
                           ),
-                          SizedBox(width: 3.0),
+                          const SizedBox(width: 3.0),
                           Switch(
                             value: vegOnly,
                             onChanged: (value) {
@@ -124,19 +124,18 @@ class _RestaurantItemsState extends State<RestaurantItems> {
                     ],
                   ),
                 ),
-                Container(
-                  child: TabBar(
-                    indicatorColor: primaryColor,
-                    indicatorPadding: EdgeInsets.only(right: 15.0, left: 15.0),
-                    isScrollable: true,
-                    tabs: [
-                      Tab(text: 'Chinese'.toUpperCase()),
-                      Tab(text: 'Salads'.toUpperCase()),
-                      Tab(text: 'Dessert'.toUpperCase()),
-                      Tab(text: 'Brews'.toUpperCase()),
-                      Tab(text: 'Continental'.toUpperCase()),
-                    ],
-                  ),
+                TabBar(
+                  indicatorColor: primaryColor,
+                  indicatorPadding:
+                      const EdgeInsets.only(right: 15.0, left: 15.0),
+                  isScrollable: true,
+                  tabs: [
+                    Tab(text: 'Chinese'.toUpperCase()),
+                    Tab(text: 'Salads'.toUpperCase()),
+                    Tab(text: 'Dessert'.toUpperCase()),
+                    Tab(text: 'Brews'.toUpperCase()),
+                    Tab(text: 'Continental'.toUpperCase()),
+                  ],
                 ),
               ],
             ),
@@ -159,7 +158,7 @@ class _RestaurantItemsState extends State<RestaurantItems> {
     double width = MediaQuery.of(context).size.width;
     return ListView.builder(
       itemCount: itemListData.length,
-      physics: BouncingScrollPhysics(),
+      physics: const BouncingScrollPhysics(),
       itemBuilder: (context, index) {
         final item = itemListData[index];
         return Container(
@@ -194,7 +193,7 @@ class _RestaurantItemsState extends State<RestaurantItems> {
                 ),
               ),
               widthSpace,
-              Container(
+              SizedBox(
                 width: width - (fixPadding * 4.0 + 26.0 + 10.0 + 100.0),
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.start,
@@ -256,43 +255,90 @@ class _RestaurantItemsState extends State<RestaurantItems> {
         builder: (BuildContext bc) {
           double width = MediaQuery.of(context).size.width;
           return StatefulBuilder(builder: (context, setState) {
-            return Container(
-              child: Wrap(
-                children: <Widget>[
-                  Padding(
-                    padding: EdgeInsets.all(fixPadding * 2.0),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Image.asset(
-                          'assets/customize.png',
-                          width: 70.0,
-                          height: 70.0,
-                          fit: BoxFit.fitWidth,
-                        ),
-                        IconButton(
-                          icon:
-                              Icon(Icons.close, color: blackColor, size: 22.0),
-                          onPressed: () {
-                            Navigator.pop(context);
-                          },
-                        ),
-                      ],
-                    ),
+            return Wrap(
+              children: <Widget>[
+                Padding(
+                  padding: EdgeInsets.all(fixPadding * 2.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset(
+                        'assets/customize.png',
+                        width: 70.0,
+                        height: 70.0,
+                        fit: BoxFit.fitWidth,
+                      ),
+                      IconButton(
+                        icon: Icon(Icons.close, color: blackColor, size: 22.0),
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(left: fixPadding * 2.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          'Customize',
-                          style: blackExtraLargeTextStyle,
-                        ),
-                        heightSpace,
-                        Row(
+                ),
+                Padding(
+                  padding: EdgeInsets.only(left: fixPadding * 2.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Customize',
+                        style: blackExtraLargeTextStyle,
+                      ),
+                      heightSpace,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Container(
+                            width: 18.0,
+                            height: 18.0,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                              border:
+                                  Border.all(width: 1.0, color: Colors.green),
+                            ),
+                            child: Container(
+                              width: 12.0,
+                              height: 12.0,
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  color: Colors.green),
+                            ),
+                          ),
+                          const SizedBox(width: 5.0),
+                          Text(
+                            'Cold Brew Coffee',
+                            style: greySmallTextStyle,
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: fixPadding * 3.0,
+                ),
+                Padding(
+                  padding: EdgeInsets.only(
+                      left: fixPadding * 2.0, right: fixPadding * 2.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text('Choice of Coffee', style: blackHeadingTextStyle),
+                      heightSpace,
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            option1 = true;
+                            option2 = false;
+                          });
+                        },
+                        child: Row(
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
@@ -312,244 +358,193 @@ class _RestaurantItemsState extends State<RestaurantItems> {
                                     color: Colors.green),
                               ),
                             ),
-                            SizedBox(width: 5.0),
+                            widthSpace,
+                            Container(
+                              width: 18.0,
+                              height: 18.0,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(9.0),
+                                border: Border.all(
+                                    width: 1.0,
+                                    color: (option1)
+                                        ? primaryColor
+                                        : Colors.grey.shade500),
+                              ),
+                              child: Container(
+                                width: 12.0,
+                                height: 12.0,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6.0),
+                                  color: (option1)
+                                      ? primaryColor
+                                      : Colors.transparent,
+                                ),
+                              ),
+                            ),
+                            widthSpace,
+                            Text('Light - Fruity + Milk Chocolate',
+                                style: inputTextStyle),
+                            widthSpace,
                             Text(
-                              'Cold Brew Coffee',
+                              '\$0',
                               style: greySmallTextStyle,
+                            ),
+                          ],
+                        ),
+                      ),
+                      heightSpace,
+                      InkWell(
+                        onTap: () {
+                          setState(() {
+                            option2 = true;
+                            option1 = false;
+                          });
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 18.0,
+                              height: 18.0,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                border:
+                                    Border.all(width: 1.0, color: Colors.green),
+                              ),
+                              child: Container(
+                                width: 12.0,
+                                height: 12.0,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                    color: Colors.green),
+                              ),
+                            ),
+                            widthSpace,
+                            Container(
+                              width: 18.0,
+                              height: 18.0,
+                              alignment: Alignment.center,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(9.0),
+                                border: Border.all(
+                                    width: 1.0,
+                                    color: (option2)
+                                        ? primaryColor
+                                        : Colors.grey.shade500),
+                              ),
+                              child: Container(
+                                width: 12.0,
+                                height: 12.0,
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(6.0),
+                                  color: (option2)
+                                      ? primaryColor
+                                      : Colors.transparent,
+                                ),
+                              ),
+                            ),
+                            widthSpace,
+                            Text('Bold - Cocoa + Nutty', style: inputTextStyle),
+                            widthSpace,
+                            Text(
+                              '\$0',
+                              style: greySmallTextStyle,
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: fixPadding * 1.0,
+                ),
+                Material(
+                  elevation: 7.0,
+                  color: whiteColor,
+                  child: Container(
+                    width: width,
+                    padding: EdgeInsets.all(fixPadding * 2.0),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Text(
+                              'Bold - Cocoa',
+                              style: greySmallTextStyle,
+                            ),
+                            Text(
+                              '+1 more',
+                              style: greySmallTextStyle,
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 15.0),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Item Total',
+                                  style: blackHeadingTextStyle,
+                                ),
+                                const SizedBox(width: 5.0),
+                                Container(
+                                  width: 10.0,
+                                  height: 10.0,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(5.0),
+                                    color: Colors.grey[400],
+                                  ),
+                                ),
+                                const SizedBox(width: 5.0),
+                                Text(
+                                  '\$5',
+                                  style: priceTextStyle,
+                                ),
+                              ],
+                            ),
+                            InkWell(
+                              onTap: () {
+                                Navigator.pop(context);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => Cart()));
+                              },
+                              child: Container(
+                                width: 120.0,
+                                padding: EdgeInsets.all(fixPadding * 0.6),
+                                alignment: Alignment.center,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  color: primaryColor,
+                                ),
+                                child: Text(
+                                  'Add Item',
+                                  style: whiteBottonTextStyle,
+                                ),
+                              ),
                             ),
                           ],
                         ),
                       ],
                     ),
                   ),
-                  Container(
-                    height: fixPadding * 3.0,
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(
-                        left: fixPadding * 2.0, right: fixPadding * 2.0),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Choice of Coffee', style: blackHeadingTextStyle),
-                        heightSpace,
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              option1 = true;
-                              option2 = false;
-                            });
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 18.0,
-                                height: 18.0,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 1.0, color: Colors.green),
-                                ),
-                                child: Container(
-                                  width: 12.0,
-                                  height: 12.0,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      color: Colors.green),
-                                ),
-                              ),
-                              widthSpace,
-                              Container(
-                                width: 18.0,
-                                height: 18.0,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(9.0),
-                                  border: Border.all(
-                                      width: 1.0,
-                                      color: (option1)
-                                          ? primaryColor
-                                          : Colors.grey.shade500),
-                                ),
-                                child: Container(
-                                  width: 12.0,
-                                  height: 12.0,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(6.0),
-                                    color: (option1)
-                                        ? primaryColor
-                                        : Colors.transparent,
-                                  ),
-                                ),
-                              ),
-                              widthSpace,
-                              Text('Light - Fruity + Milk Chocolate',
-                                  style: inputTextStyle),
-                              widthSpace,
-                              Text(
-                                '\$0',
-                                style: greySmallTextStyle,
-                              ),
-                            ],
-                          ),
-                        ),
-                        heightSpace,
-                        InkWell(
-                          onTap: () {
-                            setState(() {
-                              option2 = true;
-                              option1 = false;
-                            });
-                          },
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                width: 18.0,
-                                height: 18.0,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      width: 1.0, color: Colors.green),
-                                ),
-                                child: Container(
-                                  width: 12.0,
-                                  height: 12.0,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(8.0),
-                                      color: Colors.green),
-                                ),
-                              ),
-                              widthSpace,
-                              Container(
-                                width: 18.0,
-                                height: 18.0,
-                                alignment: Alignment.center,
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(9.0),
-                                  border: Border.all(
-                                      width: 1.0,
-                                      color: (option2)
-                                          ? primaryColor
-                                          : Colors.grey.shade500),
-                                ),
-                                child: Container(
-                                  width: 12.0,
-                                  height: 12.0,
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(6.0),
-                                    color: (option2)
-                                        ? primaryColor
-                                        : Colors.transparent,
-                                  ),
-                                ),
-                              ),
-                              widthSpace,
-                              Text('Bold - Cocoa + Nutty',
-                                  style: inputTextStyle),
-                              widthSpace,
-                              Text(
-                                '\$0',
-                                style: greySmallTextStyle,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    height: fixPadding * 1.0,
-                  ),
-                  Material(
-                    elevation: 7.0,
-                    color: whiteColor,
-                    child: Container(
-                      width: width,
-                      padding: EdgeInsets.all(fixPadding * 2.0),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Text(
-                                'Bold - Cocoa',
-                                style: greySmallTextStyle,
-                              ),
-                              Text(
-                                '+1 more',
-                                style: greySmallTextStyle,
-                              ),
-                            ],
-                          ),
-                          SizedBox(height: 15.0),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Text(
-                                    'Item Total',
-                                    style: blackHeadingTextStyle,
-                                  ),
-                                  SizedBox(width: 5.0),
-                                  Container(
-                                    width: 10.0,
-                                    height: 10.0,
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(5.0),
-                                      color: Colors.grey[400],
-                                    ),
-                                  ),
-                                  SizedBox(width: 5.0),
-                                  Text(
-                                    '\$5',
-                                    style: priceTextStyle,
-                                  ),
-                                ],
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.pop(context);
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) => Cart()));
-                                },
-                                child: Container(
-                                  width: 120.0,
-                                  padding: EdgeInsets.all(fixPadding * 0.6),
-                                  alignment: Alignment.center,
-                                  decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20.0),
-                                    color: primaryColor,
-                                  ),
-                                  child: Text(
-                                    'Add Item',
-                                    style: whiteBottonTextStyle,
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
             );
           });
         });

@@ -1,38 +1,52 @@
-// To parse this JSON data, do
-//
-//     final user = userFromMap(jsonString);
-
 class User {
-  User(
-      {
-      this.address,
-      this.role,
-      this.userName,
-      this.phoneNumber,
-      this.id,
-      this.v});
-
+  String? sId;
+  String? username;
+  String? password;
+  String? roleType;
+  int? phoneNum;
   String? address;
-  String? role;
-  String? userName;
-  int? phoneNumber;
-  String? id;
-  int? v;
+  bool? isVerified;
+  bool? isActive;
+  int? iV;
+  String? roleId;
 
-  factory User.fromMap(Map<String, dynamic> json) => User(
-      address: json["address"],
-      role: json["roleType"],
-      userName: json["username"],
-      phoneNumber: json["phoneNum"],
-      id: json["_id"],
-      v: json["__v"]);
+  User(
+      {this.sId,
+      this.username,
+      this.password,
+      this.roleType,
+      this.phoneNum,
+      this.address,
+      this.isVerified,
+      this.isActive,
+      this.iV,
+      this.roleId});
 
-  Map<String, dynamic> toMap() => {
-        "address": address,
-        "role": role,
-        "userName": userName,
-        "phoneNumber": phoneNumber,
-        "_id": id,
-        "__v": v,
-      };
+  User.fromJson(Map<String, dynamic> json) {
+    sId = json['_id'];
+    username = json['username'];
+    password = json['password'];
+    roleType = json['roleType'];
+    phoneNum = json['phoneNum'];
+    address = json['address'];
+    isVerified = json['isVerified'];
+    isActive = json['isActive'];
+    iV = json['__v'];
+    roleId = json['roleId'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['username'] = username;
+    data['password'] = password;
+    data['roleType'] = roleType;
+    data['phoneNum'] = phoneNum;
+    data['address'] = address;
+    data['isVerified'] = isVerified;
+    data['isActive'] = isActive;
+    data['__v'] = iV;
+    data['roleId'] = roleId;
+    return data;
+  }
 }

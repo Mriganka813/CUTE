@@ -8,6 +8,7 @@ import 'package:geocoding/geocoding.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:cute/services/page_services/trip_info.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Orders extends StatefulWidget {
   @override
@@ -16,6 +17,7 @@ class Orders extends StatefulWidget {
 
 class _ActiveOrdersState extends State<Orders> {
   List<Order> orders = [];
+  TripInfo tripInfo = TripInfo();
   List<Order> PastOrders = [];
   bool isLoadingActiveOrder = true;
   bool isLoadingPastOrder = true;
@@ -27,7 +29,7 @@ class _ActiveOrdersState extends State<Orders> {
     fetchOrders();
     if (mounted) {
       fetchOrders();
-      timer = Timer.periodic(Duration(seconds: 15), (Timer t) {
+      timer = Timer.periodic(const Duration(seconds: 15), (Timer t) {
         fetchOrders();
       });
     } else {
@@ -131,7 +133,7 @@ class _ActiveOrdersState extends State<Orders> {
           ),
           orders.length > 0
               ? activeOrder()
-              : Column(children: [
+              : const Column(children: [
                   // SizedBox(height: 30),
                   // Visibility(
                   //     visible: isLoadingActiveOrder,
@@ -156,7 +158,7 @@ class _ActiveOrdersState extends State<Orders> {
           ),
           PastOrders.length > 0
               ? pastOrder()
-              : Column(children: [
+              : const Column(children: [
                   // SizedBox(height: 30),
                   // Visibility(
                   //     visible: isLoadingPastOrder,
@@ -185,7 +187,7 @@ class _ActiveOrdersState extends State<Orders> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           child: Container(
             height: 200.0,
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -194,7 +196,7 @@ class _ActiveOrdersState extends State<Orders> {
                   "Are you sure you want to cancel the ride?",
                   style: blackHeadingTextStyle,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20.0,
                 ),
                 Row(
@@ -207,7 +209,7 @@ class _ActiveOrdersState extends State<Orders> {
                       child: Container(
                         width: (width / 3.5),
                         alignment: Alignment.center,
-                        padding: EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(10.0),
                         decoration: BoxDecoration(
                           color: Colors.grey[300],
                           borderRadius: BorderRadius.circular(5.0),
@@ -227,7 +229,7 @@ class _ActiveOrdersState extends State<Orders> {
                       child: Container(
                         width: (width / 3.5),
                         alignment: Alignment.center,
-                        padding: EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(10.0),
                         decoration: BoxDecoration(
                           color: primaryColor,
                           borderRadius: BorderRadius.circular(5.0),
@@ -250,314 +252,381 @@ class _ActiveOrdersState extends State<Orders> {
 
   activeOrder() {
     double width = MediaQuery.of(context).size.width;
-    return Container(
-      padding: EdgeInsets.all(fixPadding * 2.0),
-      color: whiteColor,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.start,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+    return ListView.builder(
+      itemCount: orders.length,
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemBuilder: (context, index) => Container(
+        padding: EdgeInsets.all(fixPadding * 2.0),
+        color: whiteColor,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              '#${orders[0].tripID}',
+                              style: blackLargeTextStyle,
+                            ),
+                            IconButton(
+                                onPressed: () {
+                                  cancelOrderDialog(orders[0].tripID!);
+                                },
+                                icon: const Icon(
+                                  Icons.cancel_outlined,
+                                  color: Colors.red,
+                                ))
+                          ],
+                        ),
+                        const SizedBox(height: 5.0),
+                        Row(
+                          children: [
+                            Text(
+                              getDate(orders[0].date!),
+                              style: greySmallTextStyle,
+                            ),
+                            const SizedBox(width: 10),
+                            Text(
+                              gettime(orders[0].date!),
+                              style: greySmallTextStyle,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+                // Icon(
+                //   Icons.arrow_forward_ios,
+                //   size: 18.0,
+                //   color: greyColor,
+                // ),
+              ],
+            ),
+            heightSpace,
+            heightSpace,
+            heightSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: (width - (fixPadding * 6.0 + 6.0)) / 2.0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            '#${orders[0].tripID}',
-                            style: blackLargeTextStyle,
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                cancelOrderDialog(orders[0].tripID!);
-                              },
-                              icon: Icon(
-                                Icons.cancel_outlined,
-                                color: Colors.red,
-                              ))
-                        ],
+                      Container(
+                        width: 30.0,
+                        height: 30.0,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.0),
+                          border: Border.all(width: 1.0, color: blackColor),
+                        ),
+                        child: Icon(
+                          Icons.arrow_upward,
+                          size: 25.0,
+                          color: blackColor,
+                        ),
                       ),
-                      SizedBox(height: 5.0),
-                      Row(
-                        children: [
-                          Text(
-                            getDate(orders[0].date!),
-                            style: greySmallTextStyle,
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            gettime(orders[0].date!),
-                            style: greySmallTextStyle,
-                          ),
-                        ],
+                      widthSpace,
+                      SizedBox(
+                        width: ((width - (fixPadding * 6.0 + 6.0)) / 2.0) -
+                            30.0 -
+                            10.0,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'From',
+                              style: blackSmallBoldTextStyle,
+                            ),
+                            // FUTUREBUILDER FOR ADDRESS
+                            FutureBuilder<String>(
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return Text(
+                                    snapshot.data.toString(),
+                                    style: greySmallTextStyle,
+                                    overflow: TextOverflow.ellipsis,
+                                  );
+                                } else {
+                                  return Text(
+                                    "Loading",
+                                    style: greySmallTextStyle,
+                                    overflow: TextOverflow.ellipsis,
+                                  );
+                                }
+                              },
+                              future: getCompleteAddress(orders[0].pickup_lat!,
+                                  orders[0].pickup_long!),
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),
-                ],
-              ),
-              // Icon(
-              //   Icons.arrow_forward_ios,
-              //   size: 18.0,
-              //   color: greyColor,
-              // ),
-            ],
-          ),
-          heightSpace,
-          heightSpace,
-          heightSpace,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Container(
-                width: (width - (fixPadding * 6.0 + 6.0)) / 2.0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 30.0,
-                      height: 30.0,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                        border: Border.all(width: 1.0, color: blackColor),
-                      ),
-                      child: Icon(
-                        Icons.arrow_upward,
-                        size: 25.0,
-                        color: blackColor,
-                      ),
-                    ),
-                    widthSpace,
-                    Container(
-                      width: ((width - (fixPadding * 6.0 + 6.0)) / 2.0) -
-                          30.0 -
-                          10.0,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'From',
-                            style: blackSmallBoldTextStyle,
-                          ),
-                          // FUTUREBUILDER FOR ADDRESS
-                          FutureBuilder<String>(
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return Text(
-                                  snapshot.data.toString(),
-                                  style: greySmallTextStyle,
-                                  overflow: TextOverflow.ellipsis,
-                                );
-                              } else {
-                                return Text(
-                                  "Loading",
-                                  style: greySmallTextStyle,
-                                  overflow: TextOverflow.ellipsis,
-                                );
-                              }
-                            },
-                            future: getCompleteAddress(
-                                orders[0].pickup_lat!, orders[0].pickup_long!),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
                 ),
-              ),
-              Container(
-                width: 1.0,
-                height: 40.0,
-                color: Colors.grey[300],
-              ),
-              Container(
-                width: (width - (fixPadding * 6.0 + 6.0)) / 2.0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      width: 30.0,
-                      height: 30.0,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(15.0),
-                        border: Border.all(width: 1.0, color: blackColor),
-                      ),
-                      child: Icon(
-                        Icons.arrow_downward,
-                        size: 25.0,
-                        color: blackColor,
-                      ),
-                    ),
-                    widthSpace,
-                    Container(
-                      width: ((width - (fixPadding * 6.0 + 6.0)) / 2.0) -
-                          30.0 -
-                          10.0,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'To',
-                            style: blackSmallBoldTextStyle,
-                          ),
-                          // FUTUREBUILDER FOR ADDRESS
-                          FutureBuilder<String>(
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return Text(
-                                  snapshot.data.toString(),
-                                  style: greySmallTextStyle,
-                                  overflow: TextOverflow.ellipsis,
-                                );
-                              } else {
-                                return Text(
-                                  "Loading",
-                                  style: greySmallTextStyle,
-                                  overflow: TextOverflow.ellipsis,
-                                );
-                              }
-                            },
-                            future: getCompleteAddress(
-                                orders[0].drop_lat!, orders[0].drop_long!),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
+                Container(
+                  width: 1.0,
+                  height: 40.0,
+                  color: Colors.grey[300],
                 ),
-              ),
-            ],
-          ),
-          heightSpace,
-          heightSpace,
-          Text(
-            'Paid: \₹${orders[0].price!.toStringAsFixed(2)}',
-            style: TextStyle(
-              color: blackColor,
-              fontSize: 16.0,
-              fontWeight: FontWeight.w500,
+                SizedBox(
+                  width: (width - (fixPadding * 6.0 + 6.0)) / 2.0,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        width: 30.0,
+                        height: 30.0,
+                        alignment: Alignment.center,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(15.0),
+                          border: Border.all(width: 1.0, color: blackColor),
+                        ),
+                        child: Icon(
+                          Icons.arrow_downward,
+                          size: 25.0,
+                          color: blackColor,
+                        ),
+                      ),
+                      widthSpace,
+                      SizedBox(
+                        width: ((width - (fixPadding * 6.0 + 6.0)) / 2.0) -
+                            30.0 -
+                            10.0,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'To',
+                              style: blackSmallBoldTextStyle,
+                            ),
+                            // FUTUREBUILDER FOR ADDRESS
+                            FutureBuilder<String>(
+                              builder: (context, snapshot) {
+                                if (snapshot.hasData) {
+                                  return Text(
+                                    snapshot.data.toString(),
+                                    style: greySmallTextStyle,
+                                    overflow: TextOverflow.ellipsis,
+                                  );
+                                } else {
+                                  return Text(
+                                    "Loading",
+                                    style: greySmallTextStyle,
+                                    overflow: TextOverflow.ellipsis,
+                                  );
+                                }
+                              },
+                              future: getCompleteAddress(
+                                  orders[0].drop_lat!, orders[0].drop_long!),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ),
-          heightSpace,
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    width: 30.0,
-                    height: 30.0,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(15.0),
-                      color: primaryColor.withOpacity(0.3),
+            heightSpace,
+            heightSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  'Paid: \₹${orders[0].price!.toStringAsFixed(2)}',
+                  style: TextStyle(
+                    color: blackColor,
+                    fontSize: 16.0,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                InkWell(
+                  onTap: () async {
+                    if (orders[0].status != 'WAITING FOR DRIVER') {
+                      final phoneNo =
+                          await tripInfo.driverNumber(orders[0].tripID!);
+                      var phoneNumber = '+91$phoneNo';
+
+                      final uri = Uri(scheme: 'tel', path: phoneNumber);
+
+                      if (await canLaunchUrl(uri)) {
+                        await launchUrl(uri);
+                      } else {
+                        throw 'Could not launch $uri';
+                      }
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              elevation: 0.0,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                              title: const Text("Alert"),
+                              content: const Text(
+                                  "Driver has not been assigned yet"),
+                              actions: [
+                                TextButton(
+                                  child: const Text("OK"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                )
+                              ],
+                            );
+                          });
+                    }
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(
+                      top: fixPadding * 0.7,
+                      bottom: fixPadding * 0.7,
+                      right: fixPadding * 3.5,
+                      left: fixPadding * 3.0,
                     ),
-                    child: Container(
-                      width: 20.0,
-                      height: 20.0,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40.0),
+                      color: orders[0].status != 'WAITING FOR DRIVER'
+                          ? primaryColor
+                          : Colors.grey[500],
+                    ),
+                    child: Text(
+                      'Call Driver',
+                      style: whiteBottonTextStyle,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            heightSpace,
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Container(
+                      width: 30.0,
+                      height: 30.0,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10.0),
-                        color: primaryColor,
+                        borderRadius: BorderRadius.circular(15.0),
+                        color: primaryColor.withOpacity(0.3),
                       ),
                       child: Container(
-                        width: 10.0,
-                        height: 10.0,
+                        width: 20.0,
+                        height: 20.0,
+                        alignment: Alignment.center,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(5.0),
-                          color: whiteColor,
+                          borderRadius: BorderRadius.circular(10.0),
+                          color: primaryColor,
+                        ),
+                        child: Container(
+                          width: 10.0,
+                          height: 10.0,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(5.0),
+                            color: whiteColor,
+                          ),
                         ),
                       ),
                     ),
-                  ),
-                  widthSpace,
-                  Text(
-                    orders[0].status == 'WAITING FOR DRIVER'
-                        ? 'Waiting for driver'
-                        : orders[0].status == 'CONFIRMED'
-                            ? 'Driver Confirmed'
-                            : orders[0].status == 'STARTED'
-                                ? 'Trip Started'
-                                : 'Completed',
-                    // "Waiting for driver",
-                    // textScaleFactor: 0.9,
-                    style: blackSmallBoldTextStyle,
-                  ),
-                ],
-              ),
-              InkWell(
-                onTap: () {
-                  print(orders[0].status);
-                  if (orders[0].status != 'WAITING FOR DRIVER') {
-                    Navigator.push(
-                        context,
-                        PageTransition(
-                            type: PageTransitionType.rightToLeft,
-                            child: TrackOrder(
-                              order: orders[0],
-                            )));
-                  } else {
-                    showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            elevation: 0.0,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10.0)),
-                            title: Text("Alert"),
-                            content: Text("Driver has not been assigned yet"),
-                            actions: [
-                              TextButton(
-                                child: Text("OK"),
-                                onPressed: () {
-                                  Navigator.of(context).pop();
-                                },
-                              )
-                            ],
-                          );
-                        });
-                  }
-                },
-                child: Container(
-                  padding: EdgeInsets.only(
-                    top: fixPadding * 0.7,
-                    bottom: fixPadding * 0.7,
-                    right: fixPadding * 3.0,
-                    left: fixPadding * 3.0,
-                  ),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(40.0),
-                    color: orders[0].status != 'WAITING FOR DRIVER'
-                        ? primaryColor
-                        : Colors.grey[500],
-                  ),
-                  child: Text(
-                    'Track order',
-                    style: whiteBottonTextStyle,
+                    widthSpace,
+                    Text(
+                      orders[0].status == 'WAITING FOR DRIVER'
+                          ? 'Waiting for driver'
+                          : orders[0].status == 'CONFIRMED'
+                              ? 'Driver Confirmed'
+                              : orders[0].status == 'STARTED'
+                                  ? 'Trip Started'
+                                  : 'Completed',
+                      // "Waiting for driver",
+                      // textScaleFactor: 0.9,
+                      style: blackSmallBoldTextStyle,
+                    ),
+                  ],
+                ),
+                InkWell(
+                  onTap: () {
+                    print(orders[0].status);
+                    if (orders[0].status != 'WAITING FOR DRIVER') {
+                      Navigator.push(
+                          context,
+                          PageTransition(
+                              type: PageTransitionType.rightToLeft,
+                              child: TrackOrder(
+                                order: orders[0],
+                              )));
+                    } else {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return AlertDialog(
+                              elevation: 0.0,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10.0)),
+                              title: const Text("Alert"),
+                              content: const Text(
+                                  "Driver has not been assigned yet"),
+                              actions: [
+                                TextButton(
+                                  child: const Text("OK"),
+                                  onPressed: () {
+                                    Navigator.of(context).pop();
+                                  },
+                                )
+                              ],
+                            );
+                          });
+                    }
+                  },
+                  child: Container(
+                    padding: EdgeInsets.only(
+                      top: fixPadding * 0.7,
+                      bottom: fixPadding * 0.7,
+                      right: fixPadding * 3.0,
+                      left: fixPadding * 3.0,
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(40.0),
+                      color: orders[0].status != 'WAITING FOR DRIVER'
+                          ? primaryColor
+                          : Colors.grey[500],
+                    ),
+                    child: Text(
+                      'Track order',
+                      style: whiteBottonTextStyle,
+                    ),
                   ),
                 ),
-              ),
-            ],
-          ),
-        ],
+              ],
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -565,7 +634,7 @@ class _ActiveOrdersState extends State<Orders> {
   pastOrder() {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    return Container(
+    return SizedBox(
       height: height / 1.5,
       child: ListView.builder(
         itemCount: PastOrders.length,
@@ -602,14 +671,14 @@ class _ActiveOrdersState extends State<Orders> {
                               '#${PastOrders[index].tripID}',
                               style: blackLargeTextStyle,
                             ),
-                            SizedBox(height: 5.0),
+                            const SizedBox(height: 5.0),
                             Row(
                               children: [
                                 Text(
                                   getDate(PastOrders[index].date!),
                                   style: greySmallTextStyle,
                                 ),
-                                SizedBox(width: 10),
+                                const SizedBox(width: 10),
                                 Text(
                                   gettime(PastOrders[index].date!),
                                   style: greySmallTextStyle,
@@ -634,7 +703,7 @@ class _ActiveOrdersState extends State<Orders> {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Container(
+                    SizedBox(
                       width: (width - (fixPadding * 6.0 + 6.0)) / 2.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -655,7 +724,7 @@ class _ActiveOrdersState extends State<Orders> {
                             ),
                           ),
                           widthSpace,
-                          Container(
+                          SizedBox(
                             width: ((width - (fixPadding * 6.0 + 6.0)) / 2.0) -
                                 30.0 -
                                 10.0,
@@ -699,7 +768,7 @@ class _ActiveOrdersState extends State<Orders> {
                       height: 40.0,
                       color: Colors.grey[300],
                     ),
-                    Container(
+                    SizedBox(
                       width: (width - (fixPadding * 6.0 + 6.0)) / 2.0,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.start,
@@ -720,7 +789,7 @@ class _ActiveOrdersState extends State<Orders> {
                             ),
                           ),
                           widthSpace,
-                          Container(
+                          SizedBox(
                             width: ((width - (fixPadding * 6.0 + 6.0)) / 2.0) -
                                 30.0 -
                                 10.0,
@@ -822,7 +891,7 @@ class _ActiveOrdersState extends State<Orders> {
                     // ),
                   ],
                 ),
-                Divider(thickness: 2)
+                const Divider(thickness: 2)
               ],
             ),
           );

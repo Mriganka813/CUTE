@@ -43,7 +43,7 @@ class _InviteFriendState extends State<InviteFriend> {
                   'Share code & save at least 25%',
                   style: blackLargeTextStyle,
                 ),
-                SizedBox(height: 5.0),
+                const SizedBox(height: 5.0),
                 Text(
                   'Your friend gets \$5 Courier Pro cash on sign up. You get \$5 when they complete an order of \$2 or more within 21 days. You can earn upto \$20 Courier Pro Cash.',
                   style: greySmallTextStyle,
@@ -62,14 +62,14 @@ class _InviteFriendState extends State<InviteFriend> {
                   'Your Referral Code',
                   style: blackSmallTextStyle,
                 ),
-                SizedBox(height: 5.0),
+                const SizedBox(height: 5.0),
                 DottedBorder(
                   borderType: BorderType.RRect,
-                  radius: Radius.circular(10),
+                  radius: const Radius.circular(10),
                   strokeWidth: 1.2,
                   color: greyColor.withOpacity(0.6),
                   child: ClipRRect(
-                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    borderRadius: const BorderRadius.all(Radius.circular(10)),
                     child: Container(
                       width: 200.0,
                       padding: EdgeInsets.all(fixPadding),

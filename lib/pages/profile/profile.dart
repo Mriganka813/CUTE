@@ -1,14 +1,10 @@
 import 'package:cute/constant/constant.dart';
-import 'package:cute/pages/invite_friend/invite_friend.dart';
-import 'package:cute/pages/login_signup/login.dart';
-import 'package:cute/pages/login_signup/walkthrough.dart';
 import 'package:cute/pages/notifications/notifications.dart';
 import 'package:cute/pages/profile/edit_profile.dart';
 import 'package:cute/pages/profile/privacypolicy.dart';
 import 'package:cute/pages/splashScreen.dart';
 import 'package:cute/services/auth.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../../model/Input/user.dart';
@@ -27,7 +23,7 @@ class _ProfileState extends State<Profile> {
   @override
   void initState() {
     super.initState();
-    auth = AuthService();
+    auth = const AuthService();
     user = User();
     fetchuser();
   }
@@ -37,7 +33,7 @@ class _ProfileState extends State<Profile> {
     setState(() {
       user = usr;
     });
-    print(user.phoneNumber);
+    print(user.phoneNum);
   }
 
   @override
@@ -56,7 +52,7 @@ class _ProfileState extends State<Profile> {
                 borderRadius: BorderRadius.circular(10.0)),
             child: Container(
               height: 135.0,
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -65,7 +61,7 @@ class _ProfileState extends State<Profile> {
                     "You sure want to logout?",
                     style: blackHeadingTextStyle,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   Row(
@@ -78,7 +74,7 @@ class _ProfileState extends State<Profile> {
                         child: Container(
                           width: (width / 3.5),
                           alignment: Alignment.center,
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
                             color: Colors.grey[300],
                             borderRadius: BorderRadius.circular(5.0),
@@ -100,7 +96,7 @@ class _ProfileState extends State<Profile> {
                         child: Container(
                           width: (width / 3.5),
                           alignment: Alignment.center,
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
                             color: primaryColor,
                             borderRadius: BorderRadius.circular(5.0),
@@ -175,16 +171,16 @@ class _ProfileState extends State<Profile> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           Text(
-                            user.userName == null
+                            user.username == null
                                 ? 'loading...'
-                                : user.userName!,
+                                : user.username!,
                             style: blackHeadingTextStyle,
                           ),
                           heightSpace,
                           Text(
-                            user.phoneNumber == null
+                            user.phoneNum == null
                                 ? 'loading...'
-                                : user.phoneNumber!.toString(),
+                                : user.phoneNum!.toString(),
                             style: greySmallTextStyle,
                           ),
                         ],
@@ -206,7 +202,7 @@ class _ProfileState extends State<Profile> {
             decoration: BoxDecoration(
               color: whiteColor,
               borderRadius: BorderRadius.circular(5.0),
-              boxShadow: <BoxShadow>[
+              boxShadow: const <BoxShadow>[
                 BoxShadow(
                   blurRadius: 1.5,
                   spreadRadius: 1.5,
@@ -248,7 +244,7 @@ class _ProfileState extends State<Profile> {
                         context,
                         PageTransition(
                             type: PageTransitionType.rightToLeft,
-                            child: privacyPolicy()));
+                            child: const privacyPolicy()));
                   },
                   child: getTile(
                       Icon(Icons.file_copy,
@@ -271,7 +267,7 @@ class _ProfileState extends State<Profile> {
             decoration: BoxDecoration(
               color: whiteColor,
               borderRadius: BorderRadius.circular(5.0),
-              boxShadow: <BoxShadow>[
+              boxShadow: const <BoxShadow>[
                 BoxShadow(
                   blurRadius: 1.5,
                   spreadRadius: 1.5,

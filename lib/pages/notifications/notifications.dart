@@ -45,12 +45,12 @@ class _NotificationsState extends State<Notifications> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
-            Icon(
+            const Icon(
               FontAwesomeIcons.gift,
               color: Colors.grey,
               size: 60.0,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             Text(

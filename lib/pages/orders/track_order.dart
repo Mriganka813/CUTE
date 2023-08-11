@@ -1,7 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'dart:io';
 
-import 'package:cute/pages/orders/orders.dart';
 import 'package:cute/services/page_services/trip_info.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -120,7 +118,7 @@ class _TrackOrderState extends State<TrackOrder> {
                 borderRadius: BorderRadius.circular(10.0)),
             child: Container(
               height: 200.0,
-              padding: EdgeInsets.all(20.0),
+              padding: const EdgeInsets.all(20.0),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
@@ -129,7 +127,7 @@ class _TrackOrderState extends State<TrackOrder> {
                     "Are you sure you want to end the ride?",
                     style: blackHeadingTextStyle,
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20.0,
                   ),
                   Row(
@@ -142,7 +140,7 @@ class _TrackOrderState extends State<TrackOrder> {
                         child: Container(
                           width: (width / 3.5),
                           alignment: Alignment.center,
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
                             color: Colors.grey[300],
                             borderRadius: BorderRadius.circular(5.0),
@@ -155,7 +153,7 @@ class _TrackOrderState extends State<TrackOrder> {
                       ),
                       InkWell(
                         onTap: () async {
-                          TripInfo trip = new TripInfo();
+                          TripInfo trip = TripInfo();
                           await trip.endRide(widget.order.tripID!);
                           Navigator.pop(context);
                           Navigator.pop(context);
@@ -163,7 +161,7 @@ class _TrackOrderState extends State<TrackOrder> {
                         child: Container(
                           width: (width / 3.5),
                           alignment: Alignment.center,
-                          padding: EdgeInsets.all(10.0),
+                          padding: const EdgeInsets.all(10.0),
                           decoration: BoxDecoration(
                             color: primaryColor,
                             borderRadius: BorderRadius.circular(5.0),
@@ -241,11 +239,12 @@ class _TrackOrderState extends State<TrackOrder> {
                         padding: const EdgeInsets.all(5.0),
                         child: DottedBorder(
                           borderType: BorderType.RRect,
-                          radius: Radius.circular(10),
+                          radius: const Radius.circular(10),
                           strokeWidth: 1.2,
                           color: greyColor.withOpacity(0.6),
                           child: ClipRRect(
-                            borderRadius: BorderRadius.all(Radius.circular(10)),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(10)),
                             child: Container(
                               // width: 200.0,
                               padding: EdgeInsets.all(fixPadding),
@@ -345,7 +344,7 @@ class _TrackOrderState extends State<TrackOrder> {
                             ],
                           ),
                           widthSpace,
-                          Container(
+                          SizedBox(
                             width:
                                 width - (fixPadding * 4.0 + 10.0 + 30.0 + 50.0),
                             child: Column(
@@ -361,14 +360,14 @@ class _TrackOrderState extends State<TrackOrder> {
                                             snapshot.data;
 
                                         if (updatedList!.length > 0) {
-                                          return Container(
+                                          return SizedBox(
                                             height: 60,
                                             child: ListView.builder(
                                               itemCount: updatedList.length,
                                               itemBuilder:
                                                   (BuildContext context,
                                                       int index) {
-                                                return Container(
+                                                return SizedBox(
                                                   height: 60,
                                                   child: Text(
                                                     updatedList.elementAt(

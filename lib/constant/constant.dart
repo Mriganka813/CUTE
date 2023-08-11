@@ -1,19 +1,19 @@
 import 'package:flutter/material.dart';
 
-Color scaffoldBgColor = Color(0xFFF4F4F4);
-Color primaryColor = Color.fromRGBO(0, 191, 99, 1);
+Color scaffoldBgColor = const Color(0xFFF4F4F4);
+Color primaryColor = const Color.fromRGBO(0, 191, 99, 1);
 // Color primaryColor = Color(0xFFB98549);
 Color greyColor = Colors.grey;
 Color whiteColor = Colors.white;
 Color blackColor = Colors.black;
 Color lightGreyColor = Colors.grey.withOpacity(0.3);
 Color lightPrimaryColor = primaryColor.withOpacity(0.1);
-Color darkBlueColor = Color(0xFF242E4D);
+Color darkBlueColor = const Color(0xFF242E4D);
 
 double fixPadding = 10.0;
 
-SizedBox heightSpace = SizedBox(height: 10.0);
-SizedBox widthSpace = SizedBox(width: 10.0);
+SizedBox heightSpace = const SizedBox(height: 10.0);
+SizedBox widthSpace = const SizedBox(width: 10.0);
 
 TextStyle splashBigTextStyle = TextStyle(
   color: primaryColor,
@@ -160,12 +160,12 @@ TextStyle priceTextStyle = TextStyle(
   fontSize: 18.0,
 );
 
-TextStyle blueSmallTextStyle = TextStyle(
+TextStyle blueSmallTextStyle = const TextStyle(
   color: Colors.blue,
   fontSize: 15.0,
 );
 
-TextStyle yellowExtraLargeTextStyle = TextStyle(
+TextStyle yellowExtraLargeTextStyle = const TextStyle(
   color: Colors.yellow,
   fontWeight: FontWeight.w500,
   fontSize: 40.0,

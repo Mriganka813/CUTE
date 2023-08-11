@@ -36,7 +36,7 @@ class _PaymentState extends State<Payment> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           child: Container(
             height: 170.0,
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -55,7 +55,7 @@ class _PaymentState extends State<Payment> {
                     color: primaryColor,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20.0,
                 ),
                 Text(
@@ -96,7 +96,7 @@ class _PaymentState extends State<Payment> {
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(10.0)),
           child: Container(
             height: 150.0,
-            padding: EdgeInsets.all(20.0),
+            padding: const EdgeInsets.all(20.0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -281,7 +281,7 @@ class _PaymentState extends State<Payment> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Container(
+                SizedBox(
                   width: 70.0,
                   child:
                       Image.asset(imgPath, width: 70.0, fit: BoxFit.fitWidth),
